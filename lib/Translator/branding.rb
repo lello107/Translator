@@ -15,10 +15,12 @@ module Translator
 			@playlist=playlist
 			@brandings=[]
 			@v12 = v12
+			@local_branding = local_branding
 
 			@branding_online = Translator::BrandingOnline.new() 
 			if(local_branding)
 				@branding_online.base_uri ="localhost:3000"
+
 			end
  
 
@@ -27,7 +29,13 @@ module Translator
 
 		def generate_brandings()
 			@playlist.select {|x| x.event_type.match(/PROG/)}.each do |programma|	
-				effetti = @branding_online.effetti(programma.recon_uid)#WorkPlaylistEffect.where(recon_uid: programma.recon_uid).where(active: true).order(:tx_time)
+				unless (@local_branding)
+					effetti = @branding_online.effetti(programma.recon_uid)
+				else
+					effetti = WorkPlaylistEffect.where(recon_uid: programma.recon_uid).where(active: true).order(:tx_time)
+				end
+					
+					#
 				position=1
 			 	load_template=""
 				global_template_layer=[]
