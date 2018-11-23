@@ -3,6 +3,7 @@ require "timecode"
 #require 'HTTParty'
 require 'HarrisV12'
 require 'HarrisLouth'
+require 'fileutils'
 
 module Translator
 	require "Translator/playlist_structure"
@@ -151,6 +152,12 @@ module Translator
 			end
 			@branding = Translator::Branding.new(@playlist, @v12, @local_branding) if @branding_active 
 
+			##
+			# path create
+			dirname = File.dirname("../dumps")
+			unless File.directory?(dirname)
+			  FileUtils.mkdir_p(dirname)
+			end
 			
 		end
 
