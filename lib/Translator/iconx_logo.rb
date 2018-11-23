@@ -8,6 +8,7 @@ module Translator
 		BOTTOM_RIGHT= "BUG BOTTOM RIGHT"
 		BOTTOM_RIGHT_BUG= "bug_dx"
 		OPZIONE_LOGO_CDN_NEXT_EVENT=true
+		OPZIONE_ONE_COMMAND=true
 
 		attr_accessor :applyed, :playlist, :iconxlogos
 
@@ -30,16 +31,32 @@ module Translator
 		  		next
 		  	end
 
-		  	#if programma.title_2 == BOTTOM_RIGHT
-		  	#load=Translator::NEW_LOGO.clone
-		  	#load["event_type"]="sBUG"
-		  	#load["local_tx_time"]=VERTIGO_PREROLL
-		  	#load["title"]="LoadLayout:LOGO_XD,1"
-		  	#load["position_secondary"]=1
-		  	#load["position"]=programma.position-1
-		  	#	 
-		  	#@iconxlogos.push(PlaylistStructure.new(load))
-		  	#end
+
+		  	if(OPZIONE_ONE_COMMAND)
+		  		tx_duration=Timecode.add_timecode(programma.tx_duration,VERTIGO_PREROLL)
+			  	cup=Translator::SVIDEO.clone
+			  	cup["event_type"]="sBUG"
+			  	cup["local_tx_time"]=VERTIGO_PREROLL
+			  	cup["title"]="ProgSalvo:BUG,START,1"
+			  	cup["priority"]=0
+			  	cup["position_secondary"]=position
+			  	cup["tx_duration"]=tx_duration
+			  	cup["position"]=programma.position
+			  	position+=1
+
+			  	if(programma.position==0)
+			  		@iconxlogos.push(PlaylistStructure.new(cup))
+			  	else
+				  	unless(playlist[programma.position-1].event_type.match(/PROG/))
+				  		@iconxlogos.push(PlaylistStructure.new(cup))
+				  	end
+				end	
+				
+				break	  		
+		  	end
+
+
+
 
 		  	logo_cdn_on_next=OPZIONE_LOGO_CDN_NEXT_EVENT 
 		  	logo_cdn_time=Timecode.add_timecode(programma.tx_duration,VERTIGO_PREROLL)
@@ -50,7 +67,9 @@ module Translator
 		  		priority=0
 		  	end
 	
-		  	
+		  	if(OPZIONE_ONE_COMMAND)
+
+		  	end
 		  	
 
 		  	cup=Translator::SVIDEO.clone

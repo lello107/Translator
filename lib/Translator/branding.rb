@@ -20,7 +20,7 @@ module Translator
 			
 			unless(@local_branding)
 				@branding_online = Translator::BrandingOnline.new() 
-				@branding_online.base_uri ="192.168.57.155:3000"
+				@branding_online.base_uri ="192.168.57.153:3000"
 			else
 
 			end
