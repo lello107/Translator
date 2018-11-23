@@ -37,7 +37,8 @@ module Translator
 #
 #		  	@promos.push(PlaylistStructure.new(load))  	
 		  	
-		  	cup=Translator::NEW_LOGO.clone
+		  	#cup=Translator::NEW_LOGO.clone
+		  	cup=Translator::SVIDEO.clone
 		  	cup["local_tx_time"]=VERTIGO_PREROLL
 		  	cup["event_type"]="sPRO"
 		  	cup["tx_duration"]="00:00:05:00"
