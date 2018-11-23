@@ -1,6 +1,6 @@
 require "Translator/version"
 require "timecode"
-require 'HTTParty'
+#require 'HTTParty'
 require 'HarrisV12'
 require 'HarrisLouth'
 
