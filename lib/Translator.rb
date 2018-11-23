@@ -9,6 +9,7 @@ module Translator
 	require "Translator/iconx_logo"
 	require "Translator/iconx"
 	require "Translator/iconx_promo"
+	require "Translator/iconx_commercial"
 	require "Translator/branding"
 	require "Translator/branding_online"
 	require "Translator/commercial"	
@@ -148,11 +149,13 @@ module Translator
 
 			@logo = Translator::Logo.new(@playlist) if @logo_active
 			@iconx = Translator::IconxLogo.new(@playlist) if @iconx
-			@commercial = Translator::Commercial.new(@playlist,@v12) if @commercial_active
+			
 			if(@v12)
 				@promo = Translator::IconxPromo.new(@playlist) if @promo_active
+				@commercial = Translator::IconxCommercial.new(@playlist,@v12) if @commercial_active
 			else
 				@promo = Translator::Promo.new(@playlist,@v12) if @promo_active
+				@commercial = Translator::Commercial.new(@playlist,@v12) if @commercial_active
 			end
 			@branding = Translator::Branding.new(@playlist, @v12, @local_branding) if @branding_active 
 

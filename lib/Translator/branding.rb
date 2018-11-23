@@ -17,12 +17,13 @@ module Translator
 			@v12 = v12
 			@local_branding = local_branding
 
-			@branding_online = Translator::BrandingOnline.new() 
-			if(local_branding)
-				@branding_online.base_uri ="localhost:3000"
+			
+			unless(@local_branding)
+				@branding_online = Translator::BrandingOnline.new() 
+				@branding_online.base_uri ="192.168.57.155:3000"
+			else
 
 			end
- 
 
 
 		end
@@ -34,8 +35,8 @@ module Translator
 				else
 					effetti = WorkPlaylistEffect.where(recon_uid: programma.recon_uid).where(active: true).order(:tx_time)
 				end
-					
-					#
+				## 	
+				#
 				position=1
 			 	load_template=""
 				global_template_layer=[]
@@ -62,7 +63,7 @@ module Translator
 						tx_time			= effetto.tx_time
 					end
 
-					
+									
 					if(global_template_layer.include?("#{layer}"))
 						load_position=0
 						load_tx_time=tx_time

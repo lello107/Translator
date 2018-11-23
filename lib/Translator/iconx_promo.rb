@@ -5,9 +5,9 @@ module Translator
 		VERTIGO_PREROLL="00:00:00:00"
 		LAYOUT_PROMO="promo_bug"
 		LAYER_PROMO=3
-		HIDE_CMD="hide"
-		SHOW_CMD="show"
-		TEMPLATE="PROMO"
+ 
+		SHOW_CMD="PROMO"
+		TEMPLATE="FASCIA"
 
 		attr_accessor :applyed, :playlist,:promos
 
@@ -40,6 +40,7 @@ module Translator
 		  	cup=Translator::NEW_LOGO.clone
 		  	cup["local_tx_time"]=VERTIGO_PREROLL
 		  	cup["event_type"]="sPRO"
+		  	cup["tx_duration"]="00:00:05:00"
 		  	cup["position_secondary"]=position
 		  	cup["position"]=gruppo_promo[0].position
 		  	cup["title"]="ProgSalvo:#{TEMPLATE},#{SHOW_CMD},#{LAYER_PROMO}"
