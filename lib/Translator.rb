@@ -79,7 +79,7 @@ module Translator
 
 
 	  	def self.list_stored_class()
-	  		playlists = Dir.glob("*.playlist")
+	  		playlists = Dir.glob("#{@debug_path}*.playlist")
 	  		arr_playlists=[]
 
 	  		playlists.each do |pl|
@@ -97,7 +97,7 @@ module Translator
 
 	  	def self.load_class(destination_file)
 			 
-			File.open("#{destination_file}") do |f|
+			File.open("#{@debug_path}#{destination_file}") do |f|
 				@playlist = Marshal.load(f)
 			end
 
@@ -121,9 +121,9 @@ module Translator
 		# Class Translator::Branding
 		attr_accessor :branding
 
-		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12
+		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12, :debug_path
 
-		def initialize(array: [], branding_active: true, logo_active: true, promo_active: true, commercial_active: true, iconx: true,v12: false, local_branding: false)
+		def initialize(array: [], branding_active: true, logo_active: true, promo_active: true, commercial_active: true, iconx: true,v12: false, local_branding: false, debug_path: '')
 			@playlist=[]
 			@lst_rows=[]
 			position=0
@@ -142,6 +142,7 @@ module Translator
 			@iconx = iconx
 			@v12=v12
 			@local_branding = local_branding
+			@debug_path = debug_path
 
 
 
@@ -276,7 +277,7 @@ module Translator
 
 		def store_class(destination_file)
 			dump_file=File.basename(destination_file,'.xml.lst')
-			File.open("#{dump_file}.playlist","w") do |f|
+			File.open("#{@debug_path}#{dump_file}.playlist","w") do |f|
 					Marshal.dump(self,f)
 			end
 
