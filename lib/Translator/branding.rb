@@ -57,7 +57,7 @@ module Translator
 						gestione_logo 	= effetto.effect.effect_type.logo
 						layer			= effetto.effect.effect_type.layer
 						tipo_effetto	= effetto.effect.effect_type.name
-						template		= effetto.effect.name
+						template		= effetto.effect.template
 						durata			= effetto.real_tx_duration
 						tx_time			= effetto.tx_time
 					end
