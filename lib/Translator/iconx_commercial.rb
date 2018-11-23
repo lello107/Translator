@@ -38,6 +38,7 @@ module Translator
 		  
 		  @applyed=true
 		end
+	end
 
 
 	end
