@@ -52,7 +52,7 @@ module Translator
 				  	end
 				end	
 				
-				break	  		
+				next	  		
 		  	end
 
 
