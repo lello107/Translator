@@ -1,6 +1,5 @@
 require "Translator/version"
 require "timecode"
-#require 'HTTParty'
 require 'HarrisV12'
 require 'HarrisLouth'
 require 'fileutils'
@@ -16,6 +15,8 @@ module Translator
 	require "Translator/logo"	
 	
 	@playlist=nil
+
+
 	NEW_LOGO={
 		"recon_uid"=>"100",
 		"tx_id"=>["ICONX", "SV82054-HDTX-AU-ENG", "SV82054-HDTX-AU-POL", "SV82054-HDTX-EC-POL"],
@@ -75,8 +76,10 @@ module Translator
 	    :to_json=>false
 	  }
 
+
+
 	  	def self.list_stored_class()
-	  		playlists = Dir.glob("../dumps/*.playlist")
+	  		playlists = Dir.glob("*.playlist")
 	  		arr_playlists=[]
 
 	  		playlists.each do |pl|
@@ -94,7 +97,7 @@ module Translator
 
 	  	def self.load_class(destination_file)
 			 
-			File.open("../dumps/#{destination_file}") do |f|
+			File.open("#{destination_file}") do |f|
 				@playlist = Marshal.load(f)
 			end
 
@@ -152,13 +155,7 @@ module Translator
 			end
 			@branding = Translator::Branding.new(@playlist, @v12, @local_branding) if @branding_active 
 
-			##
-			# path create
-			dirname = File.dirname("../dumps")
-			unless File.directory?(dirname)
-			  FileUtils.mkdir_p(dirname)
-			end
-			
+
 		end
 
 		## Genereta harris lst format using gem HarrisLouth
@@ -279,7 +276,7 @@ module Translator
 
 		def store_class(destination_file)
 			dump_file=File.basename(destination_file,'.xml.lst')
-			File.open("../dumps/#{dump_file}.playlist","w") do |f|
+			File.open("#{dump_file}.playlist","w") do |f|
 					Marshal.dump(self,f)
 			end
 

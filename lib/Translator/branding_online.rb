@@ -1,6 +1,6 @@
 # Or wrap things up in your own class
 module Translator
-
+  require 'HTTParty'
   class BrandingOnline
     include HTTParty
     
