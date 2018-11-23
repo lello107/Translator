@@ -46,13 +46,21 @@ module Translator
 					load_position_priority=1
 					load_same_template=false
 
-
-					gestione_logo 	= effetto["effect"]["effect_type"]["logo"]
-					layer			= effetto["effect"]["effect_type"]["layer"]
-					tipo_effetto	= effetto["effect"]["effect_type"]["name"]
-					template		= effetto["effect"]["name"]
-					durata			= effetto["real_tx_duration"]
-					tx_time			= effetto["tx_time"]
+					unless (@local_branding)
+						gestione_logo 	= effetto["effect"]["effect_type"]["logo"]
+						layer			= effetto["effect"]["effect_type"]["layer"]
+						tipo_effetto	= effetto["effect"]["effect_type"]["name"]
+						template		= effetto["effect"]["name"]
+						durata			= effetto["real_tx_duration"]
+						tx_time			= effetto["tx_time"]
+					else
+						gestione_logo 	= effetto.effect.effect_type.logo
+						layer			= effetto.effect.effect_type.layer
+						tipo_effetto	= effetto.effect.effect_type.name
+						template		= effetto.effect.name
+						durata			= effetto.real_tx_duration
+						tx_time			= effetto.tx_time
+					end
 
 					
 					if(global_template_layer.include?("#{layer}"))
