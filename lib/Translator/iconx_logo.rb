@@ -8,7 +8,8 @@ module Translator
 		BOTTOM_RIGHT= "BUG BOTTOM RIGHT"
 		BOTTOM_RIGHT_BUG= "bug_dx"
 		OPZIONE_LOGO_CDN_NEXT_EVENT=true
-		OPZIONE_ONE_COMMAND=true
+		OPZIONE_ONE_COMMAND=false
+		OPZIONE_CDN_SDATA = true
 
 		attr_accessor :applyed, :playlist, :iconxlogos
 
@@ -66,10 +67,6 @@ module Translator
 		  		logo_cdn_time=VERTIGO_PREROLL
 		  		priority=0
 		  	end
-	
-		  	if(OPZIONE_ONE_COMMAND)
-
-		  	end
 		  	
 
 		  	cup=Translator::SVIDEO.clone
@@ -91,16 +88,29 @@ module Translator
 			end
 		  	#
 		  	#byebug
+		  	if(OPZIONE_CDN_SDATA)
+		  		
+			  	cdn=Translator::NEW_LOGO.clone
+			  	cdn["position_secondary"]=(position)+100
+			  	cdn["position"]=programma.position + opzione_logo_next
+			  	cdn["priority"]=priority
+			  	cdn["tx_duration"]="00:00:03:00"
+			  	cdn["event_type"]="sBUG"
+			  	cdn["title"]="FireSalvo:hide,1"
+			  	cdn["local_tx_time"]=logo_cdn_time
+			  	position+=1		  		
+		  	else
 
-		  	cdn=Translator::SVIDEO.clone
-		  	cdn["position_secondary"]=(position)+100
-		  	cdn["position"]=programma.position + opzione_logo_next
-		  	cdn["priority"]=priority
-		  	cdn["tx_duration"]="00:00:00:00"
-		  	cdn["event_type"]="sBUG"
-		  	cdn["title"]="ProgSalvo:BUG,STOP,1"
-		  	cdn["local_tx_time"]=logo_cdn_time
-		  	position+=1
+			  	cdn=Translator::SVIDEO.clone
+			  	cdn["position_secondary"]=(position)+100
+			  	cdn["position"]=programma.position + opzione_logo_next
+			  	cdn["priority"]=priority
+			  	cdn["tx_duration"]="00:00:00:00"
+			  	cdn["event_type"]="sBUG"
+			  	cdn["title"]="ProgSalvo:BUG,STOP,1"
+			  	cdn["local_tx_time"]=logo_cdn_time
+			  	position+=1
+		  	end
 
 		  	unless(playlist[programma.position+1].event_type.match(/PROG/))
 				@iconxlogos.push(PlaylistStructure.new(cdn))
