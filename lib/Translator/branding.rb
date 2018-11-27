@@ -133,7 +133,7 @@ module Translator
 				  		cdn["title"]="CDN:1"
 				  	end
 				  	#byebug
-				  	cdn["local_tx_time"]=Timecode.add_timecode(tx_time,Timecode.diff_timecode(VERTIGO_PREROLL,ANTICIPO_LOGOS))
+				  	cdn["local_tx_time"]=Timecode.add_timecode(tx_time,Timecode.diff_timecode(@vertigo_preroll,ANTICIPO_LOGOS))
 				  	#byebug
 				  	position+=1 if gestione_logo
 					@brandings.push(PlaylistStructure.new(cdn)) if gestione_logo
