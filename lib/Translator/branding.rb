@@ -4,11 +4,12 @@ module Translator
 
 
 		ANTICIPO_LOGOS="00:00:01:00"
-		VERTIGO_PREROLL="00:00:02:15"
+		#VERTIGO_PREROLL="00:00:02:15"
 		HIDE_CMD="hide"
 		SHOW_CMD="show"
 
-		attr_accessor :applyed, :playlist,:brandings,:iconx,:branding_online, :v12
+		attr_accessor :applyed, :playlist,:brandings,:iconx,:branding_online, :v12,
+					  :vertigo_preroll, :vertigo_preroll_out
 
 		def initialize( playlist, v12,local_branding )#PlaylistStructure
 			@applyed=false
@@ -17,7 +18,10 @@ module Translator
 			@v12 = v12
 			@local_branding = local_branding
 
-			
+			@vertigo_preroll="00:00:00:00"
+			@vertigo_preroll_out="00:00:00:00"
+ 
+
 			unless(@local_branding)
 				@branding_online = Translator::BrandingOnline.new() 
 				@branding_online.base_uri ="192.168.57.153:3000"
@@ -137,7 +141,7 @@ module Translator
 					#cup template effect
 					cup_template=Translator::NEW_LOGO.clone
 				  	cup_template["event_type"]="sBRA"
-				  	cup_template["local_tx_time"]=Timecode.add_timecode(tx_time,VERTIGO_PREROLL)
+				  	cup_template["local_tx_time"]=Timecode.add_timecode(tx_time,@vertigo_preroll)
 				  	
 				  	if(@v12 == true)
 				  		cup_template["title"]="FireSalvo:#{SHOW_CMD},#{layer}"
@@ -155,7 +159,8 @@ module Translator
 					#cut down template effect
 					cdn_template=Translator::NEW_LOGO.clone
 				  	cdn_template["event_type"]="sBRA"
-				  	cdn_template["local_tx_time"]=Timecode.add_timecode(Timecode.add_timecode(tx_time,VERTIGO_PREROLL),durata)
+				  	tmp_time=Timecode.add_timecode(Timecode.add_timecode(tx_time,@vertigo_preroll),durata)
+				  	cdn_template["local_tx_time"]=Timecode.diff_timecode(tmp_time,@vertigo_preroll_out)
 				  	if(@v12 == true)
 				  		cdn_template["title"]="FireSalvo:#{HIDE_CMD},#{layer}"
 				  	else
@@ -171,7 +176,7 @@ module Translator
 				  	#cut up bug after template
 				  	cup=Translator::NEW_LOGO.clone
 				  	cup["event_type"]="sBUG"
-				  	cup["local_tx_time"]=Timecode.add_timecode(Timecode.add_timecode(tx_time,VERTIGO_PREROLL),Timecode.add_timecode(durata,ANTICIPO_LOGOS))
+				  	cup["local_tx_time"]=Timecode.add_timecode(Timecode.add_timecode(tx_time,@vertigo_preroll),Timecode.add_timecode(durata,ANTICIPO_LOGOS))
 				  	if(@v12 == true)
 				  		cup["title"]="FireSalvo:#{SHOW_CMD},1"
 				  	else
