@@ -22,7 +22,7 @@ module Translator
 			@iconxlogos=[]
 
 			@vertigo_preroll="00:00:00:00"
-			@vertigo_preroll_out="00:00:02:00"
+			@vertigo_preroll_out="00:00:00:00"
 			@opzione_one_command=false
 			@opzione_cdn_sdata=false
 			@opzione_logo_cdn_next_event=false
