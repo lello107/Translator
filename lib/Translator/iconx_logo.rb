@@ -7,9 +7,9 @@ module Translator
 		BUG_OFF= "BUG OFF"
 		BOTTOM_RIGHT= "BUG BOTTOM RIGHT"
 		BOTTOM_RIGHT_BUG= "bug_dx"
-		OPZIONE_LOGO_CDN_NEXT_EVENT=true
+		OPZIONE_LOGO_CDN_NEXT_EVENT=false
 		OPZIONE_ONE_COMMAND=false
-		OPZIONE_CDN_SDATA = true
+		OPZIONE_CDN_SDATA = false
 
 		attr_accessor :applyed, :playlist, :iconxlogos
 
