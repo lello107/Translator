@@ -41,9 +41,6 @@ module Translator
 		  	end
 
 
-
-
-
 		  	if(@opzione_one_command)
 		  		tx_duration=Timecode.add_timecode(programma.tx_duration,@vertigo_preroll)
 			  	cup=Translator::SVIDEO.clone
@@ -79,16 +76,30 @@ module Translator
 		  		priority=0
 		  	end
 		  	
+		  	if(opzione_cdn_sdata)
 
-		  	cup=Translator::SVIDEO.clone
-		  	cup["event_type"]="sBUG"
-		  	cup["local_tx_time"]=@vertigo_preroll
-		  	cup["title"]="ProgSalvo:BUG,START,1"
-		  	cup["priority"]=0
-		  	cup["position_secondary"]=position
-		  	cup["tx_duration"]="00:00:03:00"
-		  	cup["position"]=programma.position
-		  	position+=1
+		  		cup=Translator::NEW_LOGO.clone
+		  		cup["event_type"]="sBUG"
+		  		cup["local_tx_time"]=@vertigo_preroll
+		  		cup["title"]="FireSalvo:show,1"
+		  		cup["priority"]=0
+		  		cup["position_secondary"]=position
+		  		cup["tx_duration"]="00:00:03:00"
+		  		cup["position"]=programma.position
+		  		position+=1		  		
+
+		  	else
+
+		  		cup=Translator::SVIDEO.clone
+		  		cup["event_type"]="sBUG"
+		  		cup["local_tx_time"]=@vertigo_preroll
+		  		cup["title"]="ProgSalvo:BUG,START,1"
+		  		cup["priority"]=0
+		  		cup["position_secondary"]=position
+		  		cup["tx_duration"]="00:00:03:00"
+		  		cup["position"]=programma.position
+		  		position+=1
+		  	end
 
 		  	if(programma.position==0)
 		  		@iconxlogos.push(PlaylistStructure.new(cup))
