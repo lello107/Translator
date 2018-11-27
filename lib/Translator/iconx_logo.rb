@@ -3,21 +3,28 @@ module Translator
 	class IconxLogo
 
 	
-		VERTIGO_PREROLL="00:00:00:00"
+		#VERTIGO_PREROLL="00:00:00:00"
 		BUG_OFF= "BUG OFF"
 		BOTTOM_RIGHT= "BUG BOTTOM RIGHT"
 		BOTTOM_RIGHT_BUG= "bug_dx"
-		OPZIONE_LOGO_CDN_NEXT_EVENT=false
-		OPZIONE_ONE_COMMAND=false
-		OPZIONE_CDN_SDATA = false
+		#OPZIONE_LOGO_CDN_NEXT_EVENT=false
+		#OPZIONE_ONE_COMMAND=false
+		#OPZIONE_CDN_SDATA = false
 
-		attr_accessor :applyed, :playlist, :iconxlogos
+		attr_accessor :applyed, :playlist,
+					  :iconxlogos, :vertigo_preroll, 
+					  :opzione_one_command, :opzione_cdn_sdata,
+					  :opzione_logo_cdn_next_event
 
 		def initialize( playlist )#PlaylistStructure
 			@applyed=false
 			@playlist=playlist
 			@iconxlogos=[]
 
+			@vertigo_preroll="00:00:00:00"
+			@opzione_one_command=false
+			@opzione_cdn_sdata=false
+			@opzione_logo_cdn_next_event=false
 		end
 
 		def generate_iconx_logos()
@@ -33,11 +40,14 @@ module Translator
 		  	end
 
 
-		  	if(OPZIONE_ONE_COMMAND)
-		  		tx_duration=Timecode.add_timecode(programma.tx_duration,VERTIGO_PREROLL)
+
+
+
+		  	if(@opzione_one_command)
+		  		tx_duration=Timecode.add_timecode(programma.tx_duration,@vertigo_preroll)
 			  	cup=Translator::SVIDEO.clone
 			  	cup["event_type"]="sBUG"
-			  	cup["local_tx_time"]=VERTIGO_PREROLL
+			  	cup["local_tx_time"]=@vertigo_preroll
 			  	cup["title"]="ProgSalvo:BUG,START,1"
 			  	cup["priority"]=0
 			  	cup["position_secondary"]=position
@@ -59,19 +69,19 @@ module Translator
 
 
 
-		  	logo_cdn_on_next=OPZIONE_LOGO_CDN_NEXT_EVENT 
-		  	logo_cdn_time=Timecode.add_timecode(programma.tx_duration,VERTIGO_PREROLL)
+		  	logo_cdn_on_next=@opzione_logo_cdn_next_event 
+		  	logo_cdn_time=Timecode.add_timecode(programma.tx_duration,@vertigo_preroll)
 		  	opzione_logo_next=0
 		  	if(logo_cdn_on_next and programma != @playlist.last)
 		  		opzione_logo_next=1
-		  		logo_cdn_time=VERTIGO_PREROLL
+		  		logo_cdn_time=@vertigo_preroll
 		  		priority=0
 		  	end
 		  	
 
 		  	cup=Translator::SVIDEO.clone
 		  	cup["event_type"]="sBUG"
-		  	cup["local_tx_time"]=VERTIGO_PREROLL
+		  	cup["local_tx_time"]=@vertigo_preroll
 		  	cup["title"]="ProgSalvo:BUG,START,1"
 		  	cup["priority"]=0
 		  	cup["position_secondary"]=position
@@ -88,7 +98,7 @@ module Translator
 			end
 		  	#
 		  	#byebug
-		  	if(OPZIONE_CDN_SDATA)
+		  	if(opzione_cdn_sdata)
 		  		
 			  	cdn=Translator::NEW_LOGO.clone
 			  	cdn["position_secondary"]=(position)+100
