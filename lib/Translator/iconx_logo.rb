@@ -14,7 +14,7 @@ module Translator
 		attr_accessor :applyed, :playlist,
 					  :iconxlogos, :vertigo_preroll, 
 					  :opzione_one_command, :opzione_cdn_sdata,
-					  :opzione_logo_cdn_next_event
+					  :opzione_logo_cdn_next_event, :vertigo_preroll_out
 
 		def initialize( playlist )#PlaylistStructure
 			@applyed=false
@@ -22,6 +22,7 @@ module Translator
 			@iconxlogos=[]
 
 			@vertigo_preroll="00:00:00:00"
+			@vertigo_preroll_out="00:00:02:00"
 			@opzione_one_command=false
 			@opzione_cdn_sdata=false
 			@opzione_logo_cdn_next_event=false
@@ -107,7 +108,7 @@ module Translator
 			  	cdn["tx_duration"]="00:00:03:00"
 			  	cdn["event_type"]="sBUG"
 			  	cdn["title"]="FireSalvo:hide,1"
-			  	cdn["local_tx_time"]=logo_cdn_time
+			  	cdn["local_tx_time"]=Timecode.diff_timecode(logo_cdn_time, @vertigo_preroll_out)
 			  	position+=1		  		
 		  	else
 
