@@ -47,7 +47,7 @@ module Translator
 				effetti.each do |effetto|
 
 					load_position=1
-					load_tx_time=VERTIGO_PREROLL
+					load_tx_time=@vertigo_preroll
 					load_position_priority=1
 					load_same_template=false
 
