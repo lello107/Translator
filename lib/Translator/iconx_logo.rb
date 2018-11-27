@@ -119,7 +119,7 @@ module Translator
 			  	cdn["tx_duration"]="00:00:00:00"
 			  	cdn["event_type"]="sBUG"
 			  	cdn["title"]="ProgSalvo:BUG,STOP,1"
-			  	cdn["local_tx_time"]=logo_cdn_time
+			  	cdn["local_tx_time"]=Timecode.diff_timecode(logo_cdn_time, @vertigo_preroll_out)
 			  	position+=1
 		  	end
 
