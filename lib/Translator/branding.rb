@@ -138,7 +138,7 @@ module Translator
 				  	end
 				  	#byebug
 				  	tmp_time_in = Timecode.add_timecode(tx_time,Timecode.diff_timecode(@vertigo_preroll,ANTICIPO_LOGOS))
-				  	cdn["local_tx_time"]= Timecode.add_timecode(tmp_time_in, preroll_in)
+				  	cdn["local_tx_time"]= tmp_time_in
 				  	#byebug
 				  	position+=1 if gestione_logo
 					@brandings.push(PlaylistStructure.new(cdn)) if gestione_logo
@@ -146,7 +146,8 @@ module Translator
 					#cup template effect
 					cup_template=Translator::NEW_LOGO.clone
 				  	cup_template["event_type"]="sBRA"
-				  	cup_template["local_tx_time"]=Timecode.add_timecode(tx_time,@vertigo_preroll)
+				  	cup_time_in = Timecode.add_timecode(tx_time,@vertigo_preroll)
+				  	cup_template["local_tx_time"]=Timecode.add_timecode(cup_time_in, preroll_in)
 				  	
 				  	if(@v12 == true)
 				  		cup_template["title"]="FireSalvo:#{SHOW_CMD},#{layer}"
