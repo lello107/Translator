@@ -58,6 +58,8 @@ module Translator
 						template		= effetto["effect"]["name"]
 						durata			= effetto["real_tx_duration"]
 						tx_time			= effetto["tx_time"]
+						preroll_in		= effetto["effect"]["preroll_in"]
+						preroll_out		= effetto["effect"]["preroll_out"]						
 					else
 						gestione_logo 	= effetto.effect.effect_type.logo
 						layer			= effetto.effect.effect_type.layer
@@ -65,6 +67,8 @@ module Translator
 						template		= effetto.effect.template
 						durata			= effetto.real_tx_duration
 						tx_time			= effetto.tx_time
+						preroll_in		= effetto.effect.preroll_in
+						preroll_out		= effetto.effect.preroll_out						
 					end
 
 									
@@ -133,7 +137,8 @@ module Translator
 				  		cdn["title"]="CDN:1"
 				  	end
 				  	#byebug
-				  	cdn["local_tx_time"]=Timecode.add_timecode(tx_time,Timecode.diff_timecode(@vertigo_preroll,ANTICIPO_LOGOS))
+				  	tmp_time_in = Timecode.add_timecode(tx_time,Timecode.diff_timecode(@vertigo_preroll,ANTICIPO_LOGOS))
+				  	cdn["local_tx_time"]= Timecode.add_timecode(tmp_time_in, preroll_in)
 				  	#byebug
 				  	position+=1 if gestione_logo
 					@brandings.push(PlaylistStructure.new(cdn)) if gestione_logo
@@ -160,6 +165,7 @@ module Translator
 					cdn_template=Translator::NEW_LOGO.clone
 				  	cdn_template["event_type"]="sBRA"
 				  	tmp_time=Timecode.add_timecode(Timecode.add_timecode(tx_time,@vertigo_preroll),durata)
+				  	tmp_time=Timecode.diff_timecode(tmp_time,preroll_out)
 				  	cdn_template["local_tx_time"]=Timecode.diff_timecode(tmp_time,@vertigo_preroll_out)
 				  	if(@v12 == true)
 				  		cdn_template["title"]="FireSalvo:#{HIDE_CMD},#{layer}"
