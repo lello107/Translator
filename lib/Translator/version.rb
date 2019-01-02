@@ -1,3 +1,3 @@
 module Translator
-  VERSION = "0.0.2.6.19"
+  VERSION = "0.0.2.6.20"
 end
