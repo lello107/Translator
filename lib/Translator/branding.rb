@@ -74,7 +74,7 @@ module Translator
 									
 					if(global_template_layer.include?("#{layer}"))
 						load_position=0
-						load_tx_time=tx_time
+						load_tx_time=Timecode.diff_timecode(tx_time,"00:00:02:00")
 						load_position_priority=position
 						position+=1
 						if(load_template=="#{template}")
@@ -136,12 +136,12 @@ module Translator
 				  	else
 				  		cdn["title"]="CDN:1"
 				  	end
-				  	#byebug
-				  	tmp_time_in = Timecode.add_timecode(tx_time,Timecode.diff_timecode(@vertigo_preroll,ANTICIPO_LOGOS))
-				  	cdn["local_tx_time"]= tmp_time_in
-				  	#byebug
+				  	tmp_time_in = Timecode.add_timecode(tx_time,durata))
+				  	cdn["local_tx_time"]= Timecode.add_timecode(tmp_time_in,@vertigo_preroll)
 				  	position+=1 if gestione_logo
 					@brandings.push(PlaylistStructure.new(cdn)) if gestione_logo
+
+
 
 					#cup template effect
 					cup_template=Translator::NEW_LOGO.clone
