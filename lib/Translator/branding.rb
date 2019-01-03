@@ -93,9 +93,7 @@ module Translator
 				  		gestione_logo = false
 				  	end
 
-				   if(tipo_effetto=="ENDCREDITS")
-				   		load_same_template=false
-				   end
+
 
 				   if(load_same_template==false)
 				  		#load template on prev event
@@ -103,11 +101,7 @@ module Translator
 			  			load["event_type"]="sBRA"
 			  			load["local_tx_time"]=load_tx_time
 			  			if(@v12 == true)
-			  				if(tipo_effetto=="ENDCREDITS")
-			  					load["title"]="FireSalvo:load,#{layer}"
-			  				else
-			  					load["title"]="LoadLayout:#{template},#{layer}"
-			  				end
+			  				load["title"]="LoadLayout:#{template},#{layer}"
 			  			else
 			  				load["title"]="LOADI:#{layer} #{template}"
 			  			end
@@ -117,6 +111,8 @@ module Translator
 			  		end
 
 			
+
+
 					#NOTA
 					nota=Translator::NEW_LOGO.clone
 				  	nota["event_type"]="sBRA"
@@ -145,6 +141,22 @@ module Translator
 				  	position+=1 if gestione_logo
 					@brandings.push(PlaylistStructure.new(cdn)) if gestione_logo
 
+
+
+
+				    if(tipo_effetto=="ENDCREDITS")
+						#cup template effect
+						cup_template_load=Translator::NEW_LOGO.clone
+					  	cup_template["event_type"]="sBRA"
+					  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
+					  	cup_template_load["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:02:00")		  	
+					  	cup_template_load["title"]="FireSalvo:#{SHOW_CMD},#{layer}"	  	
+			  			cup_template_load["position_secondary"]=position
+			  			cup_template_load["position"]=programma.position
+			  			cup_template_load["priority"]=2
+					  	position+=1
+					  	@brandings.push(PlaylistStructure.new(cup_template_load))
+				    end
 
 
 					#cup template effect
