@@ -150,9 +150,10 @@ module Translator
 					  	cup_template_load["event_type"]="sBRA"
 					  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 					  	cup_template_load["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:03:00")		  	
-					  	cup_template_load["title"]="FireSalvo:carica,#{layer}"	  	
+					  	cup_template_load["title"]="SetupAll:#{layer}"	  	
 			  			cup_template_load["position_secondary"]=position
 			  			cup_template_load["position"]=programma.position
+			  			cup_template_load["tx_duration"]="00:00:01:00"
 			  			cup_template_load["priority"]=2
 					  	position+=1
 					  	@brandings.push(PlaylistStructure.new(cup_template_load))
