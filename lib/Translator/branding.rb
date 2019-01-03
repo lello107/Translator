@@ -93,7 +93,9 @@ module Translator
 				  		gestione_logo = false
 				  	end
 
-				  	
+				   if(tipo_effetto=="ENDCREDITS")
+				   		load_same_template=false
+				   end
 
 				   if(load_same_template==false)
 				  		#load template on prev event
@@ -101,7 +103,11 @@ module Translator
 			  			load["event_type"]="sBRA"
 			  			load["local_tx_time"]=load_tx_time
 			  			if(@v12 == true)
-			  				load["title"]="LoadLayout:#{template},#{layer}"
+			  				if(tipo_effetto=="ENDCREDITS")
+			  					load["title"]="FireSalvo:load,#{layer}"
+			  				else
+			  					load["title"]="LoadLayout:#{template},#{layer}"
+			  				end
 			  			else
 			  				load["title"]="LOADI:#{layer} #{template}"
 			  			end
