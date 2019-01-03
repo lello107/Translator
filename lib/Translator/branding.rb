@@ -134,8 +134,8 @@ module Translator
 				  	else
 				  		cdn["title"]="CDN:1"
 				  	end
-				  	tmp_time_in = durata#Timecode.add_timecode(tx_time,durata)
-				  	cdn["local_tx_time"]= tmp_time_in#Timecode.add_timecode(tmp_time_in, @vertigo_preroll)
+				  	tmp_time_in = Timecode.add_timecode(tx_time,durata)
+				  	cdn["local_tx_time"]= Timecode.add_timecode(tmp_time_in, @vertigo_preroll)
 				  	position+=1 if gestione_logo
 					@brandings.push(PlaylistStructure.new(cdn)) if gestione_logo
 
@@ -144,8 +144,8 @@ module Translator
 					#cup template effect
 					cup_template=Translator::NEW_LOGO.clone
 				  	cup_template["event_type"]="sBRA"
-				  	#cup_time_in = Timecode.add_timecode(tx_time,@vertigo_preroll)
-				  	cup_template["local_tx_time"]=tx_time#Timecode.add_timecode(cup_time_in, preroll_in)
+				  	cup_time_in = Timecode.add_timecode(tx_time,@vertigo_preroll)
+				  	cup_template["local_tx_time"]=Timecode.add_timecode(cup_time_in, preroll_in)
 				  	
 				  	if(@v12 == true)
 				  		cup_template["title"]="FireSalvo:#{SHOW_CMD},#{layer}"
@@ -163,9 +163,9 @@ module Translator
 					#cut down template effect
 					cdn_template=Translator::NEW_LOGO.clone
 				  	cdn_template["event_type"]="sBRA"
-				  	tmp_time=Timecode.add_timecode(Timecode.add_timecode(tx_time,@vertigo_preroll),durata)
-				  	tmp_time=Timecode.diff_timecode(tmp_time,preroll_out)
-				  	cdn_template["local_tx_time"]=Timecode.diff_timecode(tmp_time,@vertigo_preroll_out)
+				  	tmp_time_out=Timecode.add_timecode(cup_time_in, durata)
+				  	tmp_time=Timecode.diff_timecode(tmp_time_out,preroll_out)
+				  	cdn_template["local_tx_time"]=tmp_time
 				  	if(@v12 == true)
 				  		cdn_template["title"]="FireSalvo:#{HIDE_CMD},#{layer}"
 				  	else
