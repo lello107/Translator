@@ -147,7 +147,7 @@ module Translator
 				    if(tipo_effetto=="ENDCREDITS")
 						#cup template effect
 						cup_template_load=Translator::NEW_LOGO.clone
-					  	cup_template["event_type"]="sBRA"
+					  	cup_template_load["event_type"]="sBRA"
 					  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 					  	cup_template_load["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:02:00")		  	
 					  	cup_template_load["title"]="FireSalvo:#{SHOW_CMD},#{layer}"	  	
