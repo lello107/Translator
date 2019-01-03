@@ -134,7 +134,7 @@ module Translator
 				  	else
 				  		cdn["title"]="CDN:1"
 				  	end
-				  	tmp_time_in = Timecode.add_timecode(tx_time,durata)
+				  	tmp_time_in = durata#Timecode.add_timecode(tx_time,durata)
 				  	cdn["local_tx_time"]= tmp_time_in#Timecode.add_timecode(tmp_time_in, @vertigo_preroll)
 				  	position+=1 if gestione_logo
 					@brandings.push(PlaylistStructure.new(cdn)) if gestione_logo
