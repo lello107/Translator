@@ -4,6 +4,7 @@ require 'HarrisV12'
 require 'HarrisLouth'
 require 'fileutils'
 
+
 module Translator
 	require "Translator/playlist_structure"
 	require "Translator/iconx_logo"
@@ -13,7 +14,9 @@ module Translator
 	require "Translator/branding"
 	require "Translator/branding_online"
 	require "Translator/commercial"	
-	require "Translator/logo"	
+	require "Translator/logo"
+	require "Translator/import_lst"
+
 	
 	@playlist=nil
 
