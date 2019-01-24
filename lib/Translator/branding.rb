@@ -164,6 +164,7 @@ module Translator
 					cup_template=Translator::NEW_LOGO.clone
 				  	cup_template["event_type"]="sBRA"
 				  	cup_time_in = Timecode.add_timecode(tx_time,@vertigo_preroll)
+				  	cup_time_in = Timecode.add_timecode(cup_time_in,durata)
 				  	cup_template["local_tx_time"]=Timecode.add_timecode(cup_time_in, preroll_in)
 				  	
 				  	if(@v12 == true)
