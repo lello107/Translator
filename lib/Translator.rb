@@ -151,7 +151,7 @@ module Translator
 			@local_branding = local_branding
 
 
-
+			@debug_path = Translator.debug_path
 
 			@logo = Translator::Logo.new(@playlist) if @logo_active
 			@iconx = Translator::IconxLogo.new(@playlist) if @iconx
