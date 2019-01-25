@@ -86,7 +86,7 @@ module Translator
 
 
 	  	def self.list_stored_class()
-	  		playlists = Dir.glob("#{@@debug_path}*.playlist")
+	  		playlists = Dir.glob("#{@debug_path}*.playlist")
 	  		arr_playlists=[]
 
 	  		playlists.each do |pl|
@@ -104,7 +104,7 @@ module Translator
 
 	  	def self.load_class(destination_file)
 			 
-			File.open("#{@@debug_path}#{destination_file}") do |f|
+			File.open("#{@debug_path}#{destination_file}") do |f|
 				@playlist = Marshal.load(f)
 			end
 
