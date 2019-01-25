@@ -80,7 +80,7 @@ module Translator
 	    :to_json=>false
 	  }
 
-	  DEBUG_PATH = "/public/dump/"
+	  @debug_path = "/public/dump/"
 
 	  	def self.list_stored_class()
 	  		playlists = Dir.glob("#{@debug_path}*.playlist")
