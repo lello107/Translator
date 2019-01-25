@@ -23,8 +23,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
-
+```ruby
+#in rails application console
+Translator.debug_path = "#{Rails.root}/public/dump/"
+pl = Translator.load_class(Translator.debug_last)
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

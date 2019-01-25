@@ -110,6 +110,14 @@ module Translator
 
 		end
 
+		def self.load_last()
+			arr= self.list_stored_class()
+			destination_file = arr.first[:playlist]
+			File.open("#{@debug_path}#{destination_file}") do |f|
+				@playlist = Marshal.load(f)
+			end		
+		end
+
 	class Playlist# < Hash
 		 
 		attr_accessor :playlist,:size,:hash
