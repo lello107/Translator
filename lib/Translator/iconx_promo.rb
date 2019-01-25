@@ -4,18 +4,19 @@ module Translator
 
 		VERTIGO_PREROLL="00:00:00:00"
 		LAYOUT_PROMO="promo_bug"
-		LAYER_PROMO=3
- 
-		SHOW_CMD="PROMO"
-		TEMPLATE="FASCIA"
+	 
 
-		attr_accessor :applyed, :playlist,:promos
+		attr_accessor :applyed, :playlist,:promos, :template, :show_cmd
 
 		def initialize( playlist)#PlaylistStructure
 			@applyed=false
 			@playlist=playlist
 			@promos=[]
-		 
+			#options
+			#
+			@template="FASCIA"
+		 	@show_cmd="PROMO"
+		 	@layer=3
 
 		end
 
@@ -44,7 +45,7 @@ module Translator
 		  	cup["tx_duration"]="00:00:05:00"
 		  	cup["position_secondary"]=position
 		  	cup["position"]=gruppo_promo[0].position
-		  	cup["title"]="ProgSalvo:#{TEMPLATE},#{SHOW_CMD},#{LAYER_PROMO}"
+		  	cup["title"]="ProgSalvo:#{@@template},#{@show_cmd},#{@layer_promo}"
   	
 		  	position+=1
 

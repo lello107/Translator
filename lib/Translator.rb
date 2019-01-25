@@ -80,7 +80,7 @@ module Translator
 	    :to_json=>false
 	  }
 
-
+	  DEBUG_PATH = "/public/dump/"
 
 	  	def self.list_stored_class()
 	  		playlists = Dir.glob("#{@debug_path}*.playlist")
@@ -127,7 +127,7 @@ module Translator
 
 		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12, :debug_path
 
-		def initialize(array: [], branding_active: true, logo_active: true, promo_active: true, commercial_active: true, iconx: true,v12: false, local_branding: false, debug_path: '')
+		def initialize(array: [], branding_active: true, logo_active: true, promo_active: true, commercial_active: true, iconx: true,v12: false, local_branding: false)
 			@playlist=[]
 			@lst_rows=[]
 			position=0
@@ -146,7 +146,7 @@ module Translator
 			@iconx = iconx
 			@v12=v12
 			@local_branding = local_branding
-			@debug_path = debug_path
+
 
 
 

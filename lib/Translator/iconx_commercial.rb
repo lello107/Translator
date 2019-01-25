@@ -4,10 +4,7 @@ module Translator
 
 		VERTIGO_PREROLL="00:00:00:00"
 		LAYOUT_COMM="comm_bug"
-		LAYER_COMM=4
- 
-		SHOW_CMD="COMM"
-		TEMPLATE="FASCIA"
+
 
 		attr_accessor :applyed, :playlist,:commercials
 
@@ -16,7 +13,10 @@ module Translator
 			@playlist=playlist
 			@commercials=[]
 			@v12=v12
-
+ 
+			@template="FASCIA"
+		 	@show_cmd="COMM"
+		 	@layer=3
 		end
 
 		def generate_commercials()
@@ -32,7 +32,7 @@ module Translator
 		  	cup["tx_duration"]="00:00:05:00"
 		  	cup["position_secondary"]=position
 		  	cup["position"]=gruppo_commercials[0].position
-		  	cup["title"]="ProgSalvo:#{TEMPLATE},#{SHOW_CMD},#{LAYER_COMM}"	 		  	
+		  	cup["title"]="ProgSalvo:#{@template},#{@show_cmd},#{@layer}"	 		  	
 		  	position+=1
 		  	@commercials.push(PlaylistStructure.new(cup))
 			
