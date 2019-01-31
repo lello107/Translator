@@ -57,11 +57,11 @@ module Translator
 		      		xml.event_type event_type
 		      		xml.schedule_event_type schedule_event_type
 		      		xml.tx_source
-		      		xml.plan_event_date "28/11/2016"
+		      		xml.plan_event_date plan_event_date
 		      		xml.plan_event_time "06:00:00:00"
 		      		xml.plan_duration duration
 		      		xml.media_id  tx_id
-		      		xml.tx_date  "28/11/2016"
+		      		xml.tx_date  plan_event_date
 		      		xml.tx_time  on_air
 		      		xml.tx_duration duration
 		      		xml.local_tx_time  on_air
