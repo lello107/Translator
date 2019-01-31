@@ -10,6 +10,8 @@ module Translator
 		#@lst_list = HarrisLouth.read_lst("#{Rails.root}/public/test_dj.lst")
 		@lst_list = HarrisLouth.read_lst(lst_path)
 
+		after_midnight=false
+
 		@builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
 		  xml.playlist("num_of_primary_events"=> @lst_list.rows.size) {
 		      
@@ -34,8 +36,15 @@ module Translator
 		      	end
 
 		      	on_air = o.onair_tc
+		      	on_air_30h = o.onair_tc
+		      	if(after_midnight)
+		      		on_air_30h += Timecode.convert_from_frames(2160000)
+		      	end
 		      	event_type, schedule_event_type, title_2 = get_event_type(o)
 		  
+
+		  		plan_event_date = DateTime.now.strftime("%d/%m/%Y")
+		  		tx_date = DateTime.now.strftime("%d/%m/%Y")
 
 		      	#puts o.louth_title
 
@@ -56,7 +65,7 @@ module Translator
 		      		xml.tx_time  on_air
 		      		xml.tx_duration duration
 		      		xml.local_tx_time  on_air
-		      		xml.local_tx_time_30hr_clock on_air
+		      		xml.local_tx_time_30hr_clock on_air_30h
 		      		xml.season_name
 		      		xml.season_number
 		      		xml.production_type
