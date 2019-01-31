@@ -6,7 +6,7 @@ module Translator
 
 		def initialize(lst_path) #PlaylistStructure
 		
-		Rails.logger.info("Translator::ImportLst Importing lst file: #{lst_path}")
+		#Rails.logger.info("Translator::ImportLst Importing lst file: #{lst_path}")
 		#@lst_list = HarrisLouth.read_lst("#{Rails.root}/public/test_dj.lst")
 		@lst_list = HarrisLouth.read_lst(lst_path)
 
@@ -22,7 +22,7 @@ module Translator
 		      	next if( o.type_ != 0)
 		      	next if( o.id.delete(' ').empty?)
 
-		      	puts "#{o.louth_id} #{o.louth_title.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')}"
+		      	#puts "#{o.louth_id} #{o.louth_title.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')}"
 
 		      	recon_uid = rand(1000000000)
 		      	material_uid = rand(9000000)
@@ -38,7 +38,8 @@ module Translator
 		      	on_air = o.onair_tc
 		      	on_air_30h = o.onair_tc
 
-		      	if(Timecode.convert_to_frames(on_air)>2160000 and after_midnight==false)
+		      	fine_evento = Timecode.convert_to_frames(on_air) + Timecode.convert_to_frames(duration)
+		      	if(fine_evento>2160000 and after_midnight==false)
 		      		after_midnight=true
 		      	end
 
@@ -47,6 +48,7 @@ module Translator
 		      	end
 		      	event_type, schedule_event_type, title_2 = get_event_type(o)
 		  
+		      	puts "#{tx_id} #{on_air} #{after_midnight} #{fine_evento} 2160000"
 
 		  		plan_event_date = DateTime.now.strftime("%d/%m/%Y")
 		  		tx_date = DateTime.now.strftime("%d/%m/%Y")
@@ -142,13 +144,19 @@ module Translator
 		#puts @builder.to_xml
 		#File.write("#{Rails.root}/public/test4.xml",@builder.to_xml)
 
-		basename= File.basename(lst_path,".lst")
-		@xml_path = "#{Rails.root}/public/exlst/#{basename}.xml"
-		File.open(@xml_path,"w") do |f|
-		  f.write @builder.to_xml
+		begin
+			basename= File.basename(lst_path,".lst")
+			@xml_path = "#{Rails.root}/public/exlst/#{basename}.xml"
+			File.open(@xml_path,"w") do |f|
+			  f.write @builder.to_xml
+			end			
+		rescue Exception => e
+			puts e
 		end
+
+
 		#File.write(@xml_path,@builder.to_xml)
-		Rails.logger.info("Translator::ImportLst created xml file: #{@xml_path}")
+		#Rails.logger.info("Translator::ImportLst created xml file: #{@xml_path}")
 		end
 
 		def get_event_type(row)
