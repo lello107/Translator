@@ -37,6 +37,11 @@ module Translator
 
 		      	on_air = o.onair_tc
 		      	on_air_30h = o.onair_tc
+
+		      	if(Timecode.convert_to_frames(o.onair_tc)>2160000 and after_midnight==false)
+		      		after_midnight=true
+		      	end
+
 		      	if(after_midnight)
 		      		on_air_30h += Timecode.convert_from_frames(2160000)
 		      	end
