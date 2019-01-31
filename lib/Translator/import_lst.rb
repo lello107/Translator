@@ -44,7 +44,7 @@ module Translator
 		      	end
 
 		      	if(after_midnight)
-		      		on_air_30h += Timecode.add_timecode(Timecode.convert_from_frames(2160000), on_air)
+		      		on_air_30h = Timecode.add_timecode(Timecode.convert_from_frames(2160000), on_air)
 		      	end
 		      	event_type, schedule_event_type, title_2 = get_event_type(o)
 		  
