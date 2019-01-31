@@ -38,12 +38,12 @@ module Translator
 		      	on_air = o.onair_tc
 		      	on_air_30h = o.onair_tc
 
-		      	if(Timecode.convert_to_frames(o.onair_tc)>2160000 and after_midnight==false)
+		      	if(Timecode.convert_to_frames(on_air)>2160000 and after_midnight==false)
 		      		after_midnight=true
 		      	end
 
 		      	if(after_midnight)
-		      		on_air_30h += Timecode.convert_from_frames(2160000)
+		      		on_air_30h += Timecode.add_timecode(Timecode.convert_from_frames(2160000), on_air)
 		      	end
 		      	event_type, schedule_event_type, title_2 = get_event_type(o)
 		  
