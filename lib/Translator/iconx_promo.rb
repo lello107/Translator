@@ -45,7 +45,7 @@ module Translator
 		  	cup["tx_duration"]="00:00:05:00"
 		  	cup["position_secondary"]=position
 		  	cup["position"]=gruppo_promo[0].position
-		  	cup["title"]="ProgSalvo:#{@template},#{@show_cmd},#{@layer_promo}"
+		  	cup["title"]="ProgSalvo:#{@template},#{@show_cmd},#{@layer}"
   	
 		  	position+=1
 
