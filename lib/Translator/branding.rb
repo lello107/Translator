@@ -18,7 +18,7 @@ module Translator
 			@v12 = v12
 			@local_branding = local_branding
 
-			@vertigo_preroll="00:00:00:00"
+			@vertigo_preroll="00:00:02:15"
 			@vertigo_preroll_out="00:00:00:00"
  
 
@@ -99,7 +99,7 @@ module Translator
 				  		#load template on prev event
 				  		load=Translator::NEW_LOGO.clone
 			  			load["event_type"]="sBRA"
-			  			load["local_tx_time"]=load_tx_time
+			  			load["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
 			  			if(@v12 == true)
 			  				load["title"]="LoadLayout:#{template},#{layer}"
 			  			else
