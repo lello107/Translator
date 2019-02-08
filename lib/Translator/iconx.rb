@@ -14,7 +14,7 @@ module Translator
 			@applyed=false
 			@playlist=playlist
 			@iconx=[]
-			@plus_one=false
+			@plus_one=true
 			@plus_one_id="USD2"
 			@plus_one_title="LOGO"			
 
