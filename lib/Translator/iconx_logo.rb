@@ -14,7 +14,8 @@ module Translator
 		attr_accessor :applyed, :playlist,
 					  :iconxlogos, :vertigo_preroll, 
 					  :opzione_one_command, :opzione_cdn_sdata,
-					  :opzione_logo_cdn_next_event, :vertigo_preroll_out
+					  :opzione_logo_cdn_next_event, :vertigo_preroll_out,
+					  :plus_one, :plus_one_title, :plus_one_id
 
 		def initialize( playlist )#PlaylistStructure
 			@applyed=false
@@ -26,6 +27,10 @@ module Translator
 			@opzione_one_command=false
 			@opzione_cdn_sdata=false
 			@opzione_logo_cdn_next_event=false
+
+			@plus_one=false
+			@plus_one_id="USD2"
+			@plus_one_title="LOGO"			
 		end
 
 		def generate_iconx_logos()
@@ -86,7 +91,22 @@ module Translator
 		  		cup["position_secondary"]=position
 		  		cup["tx_duration"]="00:00:03:00"
 		  		cup["position"]=programma.position
-		  		position+=1		  		
+		  		position+=1	
+
+			  	if(@plus_one)
+			  		plus=Translator::NEW_LOGO.clone
+			  		plus["event_type"]="sBUG"
+			  		plus["local_tx_time"]=VERTIGO_PREROLL
+			  		plus["tx_id"][0] = @plus_one_id
+			  		plus["title"]=@plus_one_title
+			  		plus["priority"]=0
+			  		plus["position_secondary"]=position
+			  		plus["position"]=programma.position
+
+			  		position+=1
+			  		@iconx.push(PlaylistStructure.new(plus))
+			  	end
+
 
 		  	else
 
@@ -120,7 +140,23 @@ module Translator
 			  	cdn["event_type"]="sBUG"
 			  	cdn["title"]="FireSalvo:hide,1"
 			  	cdn["local_tx_time"]=Timecode.diff_timecode(logo_cdn_time, @vertigo_preroll_out)
-			  	position+=1		  		
+			  	position+=1		
+
+
+			  	if(@plus_one)
+			  		plus=Translator::NEW_LOGO.clone
+			  		plus["event_type"]="sBUG"
+			  		plus["local_tx_time"]=VERTIGO_PREROLL
+			  		plus["tx_id"][0] = @plus_one_id
+			  		plus["title"]=@plus_one_title
+			  		plus["priority"]=0
+			  		plus["position_secondary"]=position
+			  		plus["position"]=programma.position
+
+			  		position+=1
+			  		@iconx.push(PlaylistStructure.new(plus))
+			  	end
+
 		  	else
 
 			  	cdn=Translator::SVIDEO.clone
