@@ -35,6 +35,10 @@ module Translator
 			@plus_one_title="LOGO"			
 		end
 
+		def deep_copy(o)
+		  Marshal.load(Marshal.dump(o))
+		end
+
 		def generate_iconx_logos()
 		  
 		  @playlist.select {|x| x.event_type.match(/PROG/)}.each do |programma|	
@@ -97,7 +101,7 @@ module Translator
 		  		position+=1	
 
 			  	if(@plus_one)
-			  		plus=Translator::NEW_LOGO.clone
+			  		plus = deep_copy(Translator::NEW_LOGO)
 			  		plus["event_type"]="sBUG"
 			  		plus["local_tx_time"]=@vertigo_preroll
 			  		plus["tx_id"][0] = @plus_one_id
@@ -148,7 +152,7 @@ module Translator
 
 
 			  	if(@plus_one)
-			  		plus=Translator::NEW_LOGO.clone
+			  		plus = deep_copy(Translator::NEW_LOGO)
 			  		plus["event_type"]="sBUG"
 			  		plus["local_tx_time"]=@vertigo_preroll
 			  		plus["tx_id"][0] = @plus_one_id
