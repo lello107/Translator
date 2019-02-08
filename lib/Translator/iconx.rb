@@ -8,12 +8,15 @@ module Translator
 		BOTTOM_RIGHT_BUG= "bug_dx"
 		OPZIONE_LOGO_CDN_NEXT_EVENT=true
 
-		attr_accessor :applyed, :playlist, :iconx
+		attr_accessor :applyed, :playlist, :iconx, :plus_one, :plus_one_title, :plus_one_id
 
 		def initialize( playlist )#PlaylistStructure
 			@applyed=false
 			@playlist=playlist
 			@iconx=[]
+			@plus_one=false
+			@plus_one_id="USD2"
+			@plus_one_title="LOGO"			
 
 		end
 
@@ -61,6 +64,22 @@ module Translator
 
 		  	@iconx.push(PlaylistStructure.new(cup))
 
+		  	if(@plus_one)
+		  		plus=Translator::NEW_LOGO.clone
+		  		plus["event_type"]="sBUG"
+		  		plus["local_tx_time"]=VERTIGO_PREROLL
+		  		plus["tx_id"][0] = @plus_one_id
+		  		plus["title"]=@plus_one_title
+		  		plus["priority"]=0
+		  		plus["position_secondary"]=position
+		  		plus["position"]=programma.position
+
+		  		position+=1
+		  		@logos.push(PlaylistStructure.new(plus))
+		  	end
+
+
+
 		  	cdn=Translator::NEW_LOGO.clone
 		  	cdn["position_secondary"]=(position)+100
 		  	cdn["position"]=programma.position + opzione_logo_next
@@ -71,6 +90,22 @@ module Translator
 		  	position+=1
 
 			@iconx.push(PlaylistStructure.new(cdn))
+
+			if(@plus_one)
+		  		plus=Translator::NEW_LOGO.clone
+		  		plus["event_type"]="sBUG"
+		  		plus["local_tx_time"]=VERTIGO_PREROLL
+		  		plus["tx_id"][0] = @plus_one_id
+		  		plus["title"]=@plus_one_title
+		  		plus["priority"]=0
+		  		plus["position_secondary"]=position
+		  		plus["position"]=programma.position
+		  		
+		  		position+=1
+		  		@logos.push(PlaylistStructure.new(plus))
+		  	end
+			
+
 			
 		  end #end loop
 		  @applyed=true 
