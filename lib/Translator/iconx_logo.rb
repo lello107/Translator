@@ -15,12 +15,14 @@ module Translator
 					  :iconxlogos, :vertigo_preroll, 
 					  :opzione_one_command, :opzione_cdn_sdata,
 					  :opzione_logo_cdn_next_event, :vertigo_preroll_out,
-					  :plus_one, :plus_one_title, :plus_one_id
+					  :plus_one, :plus_one_title, :plus_one_id, iconx_id
 
 		def initialize( playlist )#PlaylistStructure
 			@applyed=false
 			@playlist=playlist
 			@iconxlogos=[]
+
+			@iconx_id = "ICONX"
 
 			@vertigo_preroll="00:00:00:00"
 			@vertigo_preroll_out="00:00:00:00"
@@ -85,6 +87,7 @@ module Translator
 
 		  		cup=Translator::NEW_LOGO.clone
 		  		cup["event_type"]="sBUG"
+		  		cup["tx_id"][0] = @iconx_id
 		  		cup["local_tx_time"]=@vertigo_preroll
 		  		cup["title"]="FireSalvo:show,1"
 		  		cup["priority"]=0
@@ -134,6 +137,7 @@ module Translator
 		  		
 			  	cdn=Translator::NEW_LOGO.clone
 			  	cdn["position_secondary"]=(position)+100
+			  	cdn["tx_id"][0] = @iconx_id
 			  	cdn["position"]=programma.position + opzione_logo_next
 			  	cdn["priority"]=priority
 			  	cdn["tx_duration"]="00:00:03:00"
