@@ -107,6 +107,7 @@ module Translator
 			  		plus["tx_id"][0] = @plus_one_id
 			  		plus["title"]=@plus_one_title
 			  		plus["priority"]=0
+			  		plus["tx_duration"]="00:00:02:00"
 			  		plus["position_secondary"]=position
 			  		plus["position"]=programma.position
 
@@ -154,12 +155,12 @@ module Translator
 			  	if(@plus_one)
 			  		plus = deep_copy(Translator::NEW_LOGO)
 			  		plus["event_type"]="sBUG"
-			  		plus["local_tx_time"]=@vertigo_preroll
+			  		plus["local_tx_time"]=Timecode.diff_timecode(logo_cdn_time, @vertigo_preroll_out)
 			  		plus["tx_id"][0] = @plus_one_id
 			  		plus["title"]=@plus_one_title
-			  		plus["priority"]=0
-			  		plus["position_secondary"]=position
-			  		plus["position"]=programma.position
+			  		plus["priority"]=priority
+			  		plus["position_secondary"]=(position)+101
+			  		plus["position"]=programma.position + opzione_logo_next
 
 			  		position+=1
 			  		@iconxlogos.push(PlaylistStructure.new(plus))
