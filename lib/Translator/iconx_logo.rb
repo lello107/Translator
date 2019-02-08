@@ -96,7 +96,7 @@ module Translator
 			  	if(@plus_one)
 			  		plus=Translator::NEW_LOGO.clone
 			  		plus["event_type"]="sBUG"
-			  		plus["local_tx_time"]=VERTIGO_PREROLL
+			  		plus["local_tx_time"]=@vertigo_preroll
 			  		plus["tx_id"][0] = @plus_one_id
 			  		plus["title"]=@plus_one_title
 			  		plus["priority"]=0
@@ -146,7 +146,7 @@ module Translator
 			  	if(@plus_one)
 			  		plus=Translator::NEW_LOGO.clone
 			  		plus["event_type"]="sBUG"
-			  		plus["local_tx_time"]=VERTIGO_PREROLL
+			  		plus["local_tx_time"]=@vertigo_preroll
 			  		plus["tx_id"][0] = @plus_one_id
 			  		plus["title"]=@plus_one_title
 			  		plus["priority"]=0
