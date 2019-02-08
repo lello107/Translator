@@ -136,7 +136,7 @@ module Translator
 		# Class Translator::Branding
 		attr_accessor :branding
 
-		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12, :debug_path
+		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12, :debug_path, :logo
 
 		def initialize(array: [], branding_active: true, logo_active: true, promo_active: true, commercial_active: true, iconx: true,v12: false, local_branding: false)
 			@playlist=[]
