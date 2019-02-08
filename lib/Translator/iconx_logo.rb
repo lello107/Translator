@@ -104,7 +104,7 @@ module Translator
 			  		plus["position"]=programma.position
 
 			  		position+=1
-			  		@iconx.push(PlaylistStructure.new(plus))
+			  		@iconxlogos.push(PlaylistStructure.new(plus))
 			  	end
 
 
@@ -154,7 +154,7 @@ module Translator
 			  		plus["position"]=programma.position
 
 			  		position+=1
-			  		@iconx.push(PlaylistStructure.new(plus))
+			  		@iconxlogos.push(PlaylistStructure.new(plus))
 			  	end
 
 		  	else
