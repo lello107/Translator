@@ -8,7 +8,7 @@ module Translator
 		BOTTOM_RIGHT_BUG= "bug_dx"
 		OPZIONE_LOGO_CDN_NEXT_EVENT=true
 
-		attr_accessor :applyed, :playlist,:logos,:plus_one, :plus_one_title
+		attr_accessor :applyed, :playlist,:logos,:plus_one, :plus_one_title,:plus_one_id
 
 		def initialize( playlist )#PlaylistStructure
 			@applyed=false
