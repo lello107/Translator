@@ -144,7 +144,7 @@ module Translator
 
 
 
-				    if(tipo_effetto=="ENDCREDITS")
+				    if(tipo_effetto=="ENDCREDITS" || tipo_effetto == "TRAPOCO")
 						#cup template effect
 						cup_template_load=Translator::NEW_LOGO.clone
 					  	cup_template_load["event_type"]="sBRA"
