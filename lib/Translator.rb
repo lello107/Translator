@@ -213,7 +213,7 @@ module Translator
 			    	:som 			=>		row.video_timecode_in,
 			    	:dur 			=>		row.tx_duration,
 			    	:title 			=>		row.title,
-	          		:reconcile_key	=>		row.recon_uid#row.recon_uid.to_i.to_s(20)
+	          		:reconcile_key	=>		""#row.recon_uid#row.recon_uid.to_i.to_s(20)
 			    }
 
 				if row.tipo == 1 
