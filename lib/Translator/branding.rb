@@ -32,6 +32,10 @@ module Translator
 
 		end
 
+		def deep_copy(o)
+		  Marshal.load(Marshal.dump(o))
+		end
+		
 		def generate_brandings()
 			@playlist.select {|x| x.event_type.match(/PROG/)}.each do |programma|	
 				unless (@local_branding)
