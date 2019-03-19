@@ -99,7 +99,7 @@ module Translator
 
 				   if(load_same_template==false)
 				  		#load template on prev event
-				  		load=Translator::NEW_LOGO.clone
+				  		load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 			  			load["event_type"]="sBRA"
 			  			load["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
 			  			if(@v12 == true)
@@ -116,8 +116,9 @@ module Translator
 
 
 					#NOTA
-					nota=Translator::NEW_LOGO.clone
+					nota=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 				  	nota["event_type"]="sBRA"
+				  	nota["tx_id"][0]="NOTA"
 				  	nota["local_tx_time"]=tx_time
 				  	nota["title"]="- #{tipo_effetto} -"
 		  			nota["position_secondary"]=position
@@ -128,7 +129,7 @@ module Translator
 		  			@brandings.push(PlaylistStructure.new(nota))
 
 			  		#cut down bug
-				  	cdn=Translator::NEW_LOGO.clone
+				  	cdn=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 		  			cdn["position_secondary"]=position
 		  			cdn["position"]=programma.position
 				  	cdn["event_type"]="sBUG"
@@ -148,7 +149,7 @@ module Translator
 
 				    if(tipo_effetto=="ENDCREDITS" || tipo_effetto == "TRAPOCO")
 						#cup template effect
-						cup_template_load=Translator::NEW_LOGO.clone
+						cup_template_load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 					  	cup_template_load["event_type"]="sBRA"
 					  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 					  	cup_template_load["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
@@ -169,11 +170,11 @@ module Translator
 				    	dynamics.each do |dyn|
 				    		if(dyn.comand=="UpdateText:")
 				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\,#{dyn.param3}"
-								cup_template_load=Translator::NEW_LOGO.clone
+								cup_template_load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	cup_template_load["event_type"]="sBRA"
 							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 							  	cup_template_load["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
-							  	cup_template_load["title"]="#{cmd}"	  	
+							  	cup_template_load["extended_data"]="#{cmd}"	  	
 					  			cup_template_load["position_secondary"]=position
 					  			cup_template_load["position"]=programma.position
 					  			cup_template_load["tx_duration"]="00:00:01:00"
@@ -181,11 +182,25 @@ module Translator
 							  	position+=1
 							  	@brandings.push(PlaylistStructure.new(cup_template_load))
 				    		end
+				    		if(dyn.comand=="SetGraphic:")
+				    			cmd = "SetGraphic: #{dyn.template},#{dyn.region},#{dyn.param1}"
+								cup_template_load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
+							  	cup_template_load["event_type"]="sBRA"
+							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
+							  	cup_template_load["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
+							  	cup_template_load["extended_data"]="#{cmd}"	  	
+					  			cup_template_load["position_secondary"]=position
+					  			cup_template_load["position"]=programma.position
+					  			cup_template_load["tx_duration"]="00:00:01:00"
+					  			cup_template_load["priority"]=2
+							  	position+=1
+							  	@brandings.push(PlaylistStructure.new(cup_template_load))
+				    		end				    		
 				    	end
 				    end
 
 					#cup template effect
-					cup_template=Translator::NEW_LOGO.clone
+					cup_template=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 				  	cup_template["event_type"]="sBRA"
 				  	cup_time_in = Timecode.add_timecode(tx_time,@vertigo_preroll)
 				  	#cup_time_in = Timecode.add_timecode(cup_time_in,durata)
@@ -205,7 +220,7 @@ module Translator
 
 
 					#cut down template effect
-					cdn_template=Translator::NEW_LOGO.clone
+					cdn_template=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 				  	cdn_template["event_type"]="sBRA"
 				  	tmp_time_out=Timecode.add_timecode(cup_time_in, durata)
 				  	tmp_time=Timecode.diff_timecode(tmp_time_out,preroll_out)
@@ -223,7 +238,7 @@ module Translator
 				  	@brandings.push(PlaylistStructure.new(cdn_template))
 
 				  	#cut up bug after template
-				  	cup=Translator::NEW_LOGO.clone
+				  	cup=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 				  	cup["event_type"]="sBUG"
 				  	cup["local_tx_time"]=Timecode.add_timecode(Timecode.add_timecode(tx_time,@vertigo_preroll),Timecode.add_timecode(durata,ANTICIPO_LOGOS))
 				  	if(@v12 == true)
