@@ -86,6 +86,7 @@ module Translator
 
 
 	  	def self.list_stored_class()
+	  		puts "Dir.glob:#{@debug_path}*.playlist"
 	  		playlists = Dir.glob("#{@debug_path}*.playlist")
 	  		arr_playlists=[]
 
@@ -145,7 +146,7 @@ module Translator
 			array.each do |hash|
 				hash[:position]=position
 				hash[:position_secondary]=0
-				hash[:priority]=0
+				#hash[:priority]=0
 				@playlist.push(Translator::PlaylistStructure.new(hash))
 				position+=1
 			end
@@ -213,7 +214,8 @@ module Translator
 			    	:som 			=>		row.video_timecode_in,
 			    	:dur 			=>		row.tx_duration,
 			    	:title 			=>		row.title,
-	          		:reconcile_key	=>		""#row.recon_uid#row.recon_uid.to_i.to_s(20)
+	          		:reconcile_key	=>		"",#row.recon_uid#row.recon_uid.to_i.to_s(20)
+	          		:extended_data  => 		row.extended_data
 			    }
 
 				if row.tipo == 1 
