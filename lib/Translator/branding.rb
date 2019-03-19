@@ -141,7 +141,7 @@ module Translator
 		  							position+=1
 		  						end
 
-							  	updateText["extended_data"]="#{cmd}"				 
+							  	updateText["extended_data"]="#{fulltime}#{cmd}"				 
 							  	updateText["title"]=""	  			  		 
 					  			updateText["tx_duration"]="00:00:01:00"
 					  			updateText["priority"]=2
