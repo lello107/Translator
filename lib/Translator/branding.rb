@@ -68,7 +68,9 @@ module Translator
 						durata			= effetto.real_tx_duration
 						tx_time			= effetto.tx_time
 						preroll_in		= effetto.effect.preroll_in
-						preroll_out		= effetto.effect.preroll_out						
+						preroll_out		= effetto.effect.preroll_out
+						dynamic			= effetto.effect.dynamics.present?	
+						dynamics		= effetto.effect.dynamics					
 					end
 
 									
@@ -159,6 +161,27 @@ module Translator
 					  	@brandings.push(PlaylistStructure.new(cup_template_load))
 				    end
 
+				    ##
+				    # se l'effetto ha dei dynimic le metto in playlist 
+				    # prima dell'evento
+				    # 
+				    if(dynamic)
+				    	dynamics.each do |dyn|
+				    		if(dyn.comand=="UpdateText:")
+				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\,#{dyn.param3}"
+								cup_template_load=Translator::NEW_LOGO.clone
+							  	cup_template_load["event_type"]="sBRA"
+							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
+							  	cup_template_load["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
+							  	cup_template_load["title"]="#{cmd}"	  	
+					  			cup_template_load["position_secondary"]=position
+					  			cup_template_load["position"]=programma.position
+					  			cup_template_load["tx_duration"]="00:00:01:00"
+					  			cup_template_load["priority"]=2
+							  	position+=1
+							  	@brandings.push(PlaylistStructure.new(cup_template_load))
+				    		end
+				    end
 
 					#cup template effect
 					cup_template=Translator::NEW_LOGO.clone
