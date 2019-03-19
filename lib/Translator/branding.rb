@@ -115,7 +115,49 @@ module Translator
 		  				load["position"]=(programma.position) - load_position
 			  			@brandings.push(PlaylistStructure.new(load))
 			  		end
-
+				    ##
+				    # se l'effetto ha dei dynimic le metto in playlist 
+				    # prima dell'evento
+				    # 
+				    if(dynamic)
+				    	
+				    	dynamics.each do |dyn|
+				    		if(dyn.comand=="UpdateText:")
+				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\,#{dyn.param3}"
+								updateText=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
+							  	updateText["event_type"]="sBRA"
+							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
+							  	updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
+							  	updateText["extended_data"]="#{cmd}"
+							  	updateText["extended_data_json"]="#{cmd}"
+							  	updateText["title"]=""	  	
+					  			updateText["position_secondary"]=position
+					  			updateText["position"]=programma.position
+					  			updateText["tx_duration"]="00:00:01:00"
+					  			updateText["priority"]=2
+					  			updateText["tipo"]=416
+							  	position+=1
+							  	@brandings.push(PlaylistStructure.new(updateText))
+				    		end
+				    		if(dyn.comand=="SetGraphic:")
+				    			cmd = "SetGraphic: #{dyn.template},#{dyn.region},#{dyn.param1}"
+								setGraphic=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
+							  	setGraphic["event_type"]="sBRA"
+							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
+							  	setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
+							  	setGraphic["extended_data"]="#{cmd}"
+							  	setGraphic["extended_data_json"]="#{cmd}"	 
+							  	setGraphic["title"]="" 	
+					  			setGraphic["position_secondary"]=position
+					  			setGraphic["position"]=programma.position
+					  			setGraphic["tx_duration"]="00:00:01:00"
+					  			setGraphic["priority"]=2
+					  			setGraphic["tipo"]=416
+							  	position+=1
+							  	@brandings.push(PlaylistStructure.new(setGraphic))
+				    		end				    		
+				    	end
+				    end
 			
 
 
@@ -166,46 +208,7 @@ module Translator
 					  	@brandings.push(PlaylistStructure.new(cup_template_load))
 				    end
 
-				    ##
-				    # se l'effetto ha dei dynimic le metto in playlist 
-				    # prima dell'evento
-				    # 
-				    if(dynamic)
-				    	dynamics.each do |dyn|
-				    		if(dyn.comand=="UpdateText:")
-				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\,#{dyn.param3}"
-								updateText=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
-							  	updateText["event_type"]="sBRA"
-							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
-							  	updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
-							  	updateText["extended_data"]="#{cmd}"
-							  	updateText["title"]=""	  	
-					  			updateText["position_secondary"]=position
-					  			updateText["position"]=programma.position
-					  			updateText["tx_duration"]="00:00:01:00"
-					  			updateText["priority"]=2
-					  			updateText["tipo"]=416
-							  	position+=1
-							  	@brandings.push(PlaylistStructure.new(updateText))
-				    		end
-				    		if(dyn.comand=="SetGraphic:")
-				    			cmd = "SetGraphic: #{dyn.template},#{dyn.region},#{dyn.param1}"
-								setGraphic=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
-							  	setGraphic["event_type"]="sBRA"
-							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
-							  	setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
-							  	setGraphic["extended_data"]="#{cmd}"	 
-							  	setGraphic["title"]="" 	
-					  			setGraphic["position_secondary"]=position
-					  			setGraphic["position"]=programma.position
-					  			setGraphic["tx_duration"]="00:00:01:00"
-					  			setGraphic["priority"]=2
-					  			setGraphic["tipo"]=416
-							  	position+=1
-							  	@brandings.push(PlaylistStructure.new(setGraphic))
-				    		end				    		
-				    	end
-				    end
+
 
 					#cup template effect
 					cup_template=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
