@@ -44,7 +44,7 @@ module Translator
 					effetti = WorkPlaylistEffect.where(recon_uid: programma.recon_uid).where(active: true).order(:tx_time)
 				end
 				## 	
-				#
+				##
 				position=1
 			 	load_template=""
 				global_template_layer=[]
@@ -73,8 +73,11 @@ module Translator
 						tx_time			= effetto.tx_time
 						preroll_in		= effetto.effect.preroll_in
 						preroll_out		= effetto.effect.preroll_out
-						dynamic			= effetto.effect.dynamics.present?	
-						dynamics		= effetto.effect.dynamics					
+						fulltime		= effetto.effect.fulltime
+						#prendo i dynamics da effetto quindi da quello applicato 
+						#e non da effetto.effect cioè il default
+						dynamic			= effetto.dynamics.present?	
+						dynamics		= effetto.dynamics					
 					end
 
 									
@@ -126,13 +129,22 @@ module Translator
 				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\\,#{dyn.param3}"
 								updateText=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	updateText["event_type"]="sBRA"
-							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
-							  	updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
+							  	
+							  	if(fulltime)
+			  						updateText["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
+		  							updateText["position_secondary"]=load_position_priority
+		  							updateText["position"]=(programma.position) - load_position
+		  						else
+		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
+		  							updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
+		  							updateText["position"]=programma.position	
+		  						end
+
 							  	updateText["extended_data"]="#{cmd}"
 							  	updateText["extended_data_json"]="#{cmd}"
 							  	updateText["title"]=""	  	
 					  			updateText["position_secondary"]=position
-					  			updateText["position"]=programma.position
+					  			
 					  			updateText["tx_duration"]="00:00:01:00"
 					  			updateText["priority"]=2
 					  			updateText["tipo"]=416
@@ -143,8 +155,17 @@ module Translator
 				    			cmd = "SetGraphic: #{dyn.template},#{dyn.region},#{dyn.param1}"
 								setGraphic=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	setGraphic["event_type"]="sBRA"
-							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
-							  	setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")		  	
+
+								if(fulltime)
+			  						setGraphic["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
+		  							setGraphic["position_secondary"]=load_position_priority
+		  							setGraphic["position"]=(programma.position) - load_position
+		  						else
+		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
+		  							setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
+		  							setGraphic["position"]=programma.position	
+		  						end
+
 							  	setGraphic["extended_data"]="#{cmd}"
 							  	setGraphic["extended_data_json"]="#{cmd}"	 
 							  	setGraphic["title"]="" 	
