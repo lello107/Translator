@@ -120,10 +120,10 @@ module Translator
 				    # prima dell'evento
 				    # 
 				    if(dynamic)
-				    	
+
 				    	dynamics.each do |dyn|
 				    		if(dyn.comand=="UpdateText:")
-				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\,#{dyn.param3}"
+				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\\,#{dyn.param3}"
 								updateText=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	updateText["event_type"]="sBRA"
 							  	cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
