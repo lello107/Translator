@@ -132,8 +132,8 @@ module Translator
 							   
 							  	if(fulltime=="true")
 			  						updateText["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
-		  							updateText["position_secondary"]=load_position_priority
-		  							updateText["position"]=(programma.position) - 1
+		  							updateText["position_secondary"]=1
+		  							updateText["position"]= programma.position
 		  						else
 		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 		  							updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
@@ -141,7 +141,7 @@ module Translator
 		  							position+=1
 		  						end
 
-							  	updateText["extended_data"]="#{fulltime}#{cmd}"				 
+							  	updateText["extended_data"]="#{cmd}"				 
 							  	updateText["title"]=""	  			  		 
 					  			updateText["tx_duration"]="00:00:01:00"
 					  			updateText["priority"]=2
@@ -156,8 +156,8 @@ module Translator
 
 								if(fulltime=="true")
 			  						setGraphic["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
-		  							setGraphic["position_secondary"]=load_position_priority
-		  							setGraphic["position"]=(programma.position) - 1
+		  							setGraphic["position_secondary"]=1
+		  							setGraphic["position"]= programma.position
 		  						else
 		  							cup_time_in_load = Timecode.add_timecode(tx_time, @vertigo_preroll)
 		  							setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
