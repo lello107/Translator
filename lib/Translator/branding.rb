@@ -181,6 +181,7 @@ module Translator
 							  	position+=1
 							  	@brandings.push(PlaylistStructure.new(cup_template_load))
 				    		end
+				    	end
 				    end
 
 					#cup template effect
