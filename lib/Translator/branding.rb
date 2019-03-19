@@ -129,11 +129,11 @@ module Translator
 				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\\,#{dyn.param3}"
 								updateText=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	updateText["event_type"]="sBRA"
-							  	
-							  	if(fulltime)
+							   
+							  	if(fulltime=="true")
 			  						updateText["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
 		  							updateText["position_secondary"]=load_position_priority
-		  							updateText["position"]=(programma.position) - load_position
+		  							updateText["position"]=(programma.position) - 1
 		  						else
 		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 		  							updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
@@ -157,7 +157,7 @@ module Translator
 								if(fulltime=="true")
 			  						setGraphic["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
 		  							setGraphic["position_secondary"]=load_position_priority
-		  							setGraphic["position"]=(programma.position) - load_position
+		  							setGraphic["position"]=(programma.position) - 1
 		  						else
 		  							cup_time_in_load = Timecode.add_timecode(tx_time, @vertigo_preroll)
 		  							setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
