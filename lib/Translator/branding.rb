@@ -138,17 +138,15 @@ module Translator
 		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 		  							updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
 		  							updateText["position"]=programma.position	
+		  							position+=1
 		  						end
 
-							  	updateText["extended_data"]="#{cmd}"
-							  	updateText["extended_data_json"]="#{cmd}"
-							  	updateText["title"]=""	  	
-					  			updateText["position_secondary"]=position
-					  			
+							  	updateText["extended_data"]="#{cmd}"				 
+							  	updateText["title"]=""	  			  		 
 					  			updateText["tx_duration"]="00:00:01:00"
 					  			updateText["priority"]=2
 					  			updateText["tipo"]=416
-							  	position+=1
+							  	 
 							  	@brandings.push(PlaylistStructure.new(updateText))
 				    		end
 				    		if(dyn.comand=="SetGraphic:")
@@ -156,12 +154,12 @@ module Translator
 								setGraphic=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	setGraphic["event_type"]="sBRA"
 
-								if(fulltime)
+								if(fulltime=="true")
 			  						setGraphic["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
 		  							setGraphic["position_secondary"]=load_position_priority
 		  							setGraphic["position"]=(programma.position) - load_position
 		  						else
-		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
+		  							cup_time_in_load = Timecode.add_timecode(tx_time, @vertigo_preroll)
 		  							setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
 		  							setGraphic["position"]=programma.position	
 		  						end
