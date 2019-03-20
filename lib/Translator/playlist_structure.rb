@@ -14,7 +14,7 @@ module Translator
 
 	class PlaylistStructure
 
-		attr_accessor :video_timecode_in, :position_secondary, :video_tx_id,:tipo,:position,:recon_uid,:event_type,:tx_id,:title,:title_2,:local_tx_time,:prog_type,:schedule_event_type,:tx_duration,:timecode_in
+		attr_accessor :video_timecode_in, :position_secondary, :video_tx_id,:tipo,:position,:recon_uid,:event_type,:tx_id,:title,:title_2,:local_tx_time,:prog_type,:schedule_event_type,:tx_duration,:timecode_in,:extended_data
 
 		def initialize(hash) 
 			convert_to_obj(hash)

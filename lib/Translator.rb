@@ -220,7 +220,7 @@ module Translator
 			    	:dur 			=>		row.tx_duration,
 			    	:title 			=>		row.title,
 	          		:reconcile_key	=>		"",#row.recon_uid#row.recon_uid.to_i.to_s(20)
-	          		:extended_data  => 		row.extended_data != nil ? row.extended_data : nil
+	          		:extended_data  => 		row.extended_data#.present? ? row.extended_data : nil
 			    }
 
 				if row.tipo == 1 
