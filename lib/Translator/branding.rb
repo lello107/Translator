@@ -121,7 +121,7 @@ module Translator
 				  		#load template on prev event
 				  		load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 			  			load["event_type"]="sBRA"
-			  			load["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
+			  			load["local_tx_time"]=Timecode.add_timecode("00:00:00:00",@vertigo_preroll)
 			  			if(@v12 == true)
 			  				load["title"]="LoadLayout:#{template},#{layer}"
 			  			else
