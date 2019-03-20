@@ -61,6 +61,7 @@ module Translator
 						gestione_logo 	= effetto["effect"]["effect_type"]["logo"]
 						layer			= effetto["effect"]["effect_type"]["layer"]
 						tipo_effetto	= effetto["effect"]["effect_type"]["name"]
+						tipo_effetto_sh	= effetto["effect"]["effect_type"]["short_name"]
 						template		= effetto["effect"]["name"]
 						durata			= effetto["real_tx_duration"]
 						tx_time			= effetto["tx_time"]
@@ -81,6 +82,7 @@ module Translator
 						gestione_logo 	= effetto.effect.effect_type.logo
 						layer			= effetto.effect.effect_type.layer
 						tipo_effetto	= effetto.effect.effect_type.name
+						tipo_effetto_sh	= effetto.effect.effect_type.short_name
 						template		= effetto.effect.template
 						durata			= effetto.real_tx_duration
 						tx_time			= effetto.tx_time
@@ -139,7 +141,27 @@ module Translator
 				  	nota["event_type"]="sBRA"
 				  	nota["tx_id"][0]="NOTA"
 				  	nota["local_tx_time"]=tx_time
-				  	nota["title"]="- #{tipo_effetto} -"
+				  	
+				  	if(dynamic)
+				  		dyn_txt = "#{tipo_effetto_sh} "
+				  		dynamics.each do |dyn|
+				  			begin
+						  		if(dyn.comand=="UpdateText:")
+						  			dyn_txt += "- #{dyn.param3.param3.gsub('\\','')}"
+						  		end
+						  		if(dyn.comand=="SetGraphic:")
+
+						  			dyn_txt += "- #{dyn.param1.split('\\')[-1]} "
+						  		end
+					  		rescue 
+					  			nota["title"]="- #{tipo_effetto} - dynamics"
+					  		end
+				  		end
+				  		nota["title"]=dyn_txt
+				  	else
+				  		nota["title"]="- #{tipo_effetto} -"
+				  	end
+				  	
 		  			nota["position_secondary"]=position
 		  			nota["position"]=programma.position
 		  			nota["tipo"]=224
