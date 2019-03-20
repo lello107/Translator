@@ -155,7 +155,7 @@ module Translator
 		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 		  							updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
 		  							updateText["position"]=programma.position	
-		  							etGraphic["position_secondary"]=position
+		  							updateText["position_secondary"]=position
 		  							position+=1
 		  						end
 
