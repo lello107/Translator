@@ -7,7 +7,7 @@ module Translator
     attr_accessor :base_uri, :path
 
     def initialize()
-      @base_uri = '192.168.57.153:3000'
+      @base_uri = '192.168.167.145:3000'
       @path="/work_playlist_effects/gem_generate_branding.json"
     end
 

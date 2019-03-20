@@ -3,7 +3,8 @@ require "timecode"
 require 'HarrisV12'
 require 'HarrisLouth'
 require 'fileutils'
-
+require 'byebug'
+require 'ostruct'
 
 module Translator
 	require "Translator/playlist_structure"
@@ -119,6 +120,10 @@ module Translator
 			end		
 		end
 
+		def self.local_debug()
+			self.debug_path="/Users/lello107/GEMME/Translator/bin/public/dump/"
+		end
+
 	class Playlist# < Hash
 		 
 		attr_accessor :playlist,:size,:hash
@@ -137,7 +142,7 @@ module Translator
 		# Class Translator::Branding
 		attr_accessor :branding
 
-		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12, :debug_path, :logo
+		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12, :debug_path, :logo, :local_branding
 
 		def initialize(array: [], branding_active: true, logo_active: true, promo_active: true, commercial_active: true, iconx: true,v12: false, local_branding: false)
 			@playlist=[]

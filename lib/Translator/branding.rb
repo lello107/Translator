@@ -24,7 +24,7 @@ module Translator
 
 			unless(@local_branding)
 				@branding_online = Translator::BrandingOnline.new() 
-				@branding_online.base_uri ="192.168.57.153:3000"
+				@branding_online.base_uri ="192.168.167.145:3000"
 			else
 
 			end
@@ -39,8 +39,10 @@ module Translator
 		def generate_brandings()
 			@playlist.select {|x| x.event_type.match(/PROG/)}.each do |programma|	
 				unless (@local_branding)
+					#byebug
 					effetti = @branding_online.effetti(programma.recon_uid)
 				else
+					#byebug
 					effetti = WorkPlaylistEffect.where(recon_uid: programma.recon_uid).where(active: true).order(:tx_time)
 				end
 				## 	
@@ -63,7 +65,18 @@ module Translator
 						durata			= effetto["real_tx_duration"]
 						tx_time			= effetto["tx_time"]
 						preroll_in		= effetto["effect"]["preroll_in"]
-						preroll_out		= effetto["effect"]["preroll_out"]						
+						preroll_out		= effetto["effect"]["preroll_out"]	
+						fulltime		= effetto["effect"]["fulltime"]
+						#prendo i dynamics da effetto quindi da quello applicato 
+						#e non da effetto.effect cioè il default
+						dynamic			= effetto["dynamics"].size > 0 ? true : false	
+						if(dynamic)
+							dynamics = []
+							effetto["dynamics"].each do |dyn|
+								dynamics.push(OpenStruct.new(dyn))
+							end	
+						end
+
 					else
 						gestione_logo 	= effetto.effect.effect_type.logo
 						layer			= effetto.effect.effect_type.layer
@@ -130,10 +143,12 @@ module Translator
 								updateText=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	updateText["event_type"]="sBRA"
 							   
-							  	if(fulltime=="true")
-			  						updateText["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
+							   	#byebug
+
+							  	if(fulltime)
+			  						updateText["local_tx_time"]=Timecode.add_timecode("00:00:00:00",@vertigo_preroll)
 		  							updateText["position_secondary"]=1
-		  							updateText["position"]= programma.position
+		  							updateText["position"]= programma.position -1
 		  						else
 		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 		  							updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
@@ -154,10 +169,10 @@ module Translator
 								setGraphic=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	setGraphic["event_type"]="sBRA"
 
-								if(fulltime=="true")
-			  						setGraphic["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
+								if(fulltime)
+			  						setGraphic["local_tx_time"]=Timecode.add_timecode("00:00:00:00",@vertigo_preroll)
 		  							setGraphic["position_secondary"]=1
-		  							setGraphic["position"]= programma.position
+		  							setGraphic["position"]= programma.position -1
 		  						else
 		  							cup_time_in_load = Timecode.add_timecode(tx_time, @vertigo_preroll)
 		  							setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
