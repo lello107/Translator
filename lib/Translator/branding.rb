@@ -152,7 +152,7 @@ module Translator
 		  						else
 		  							cup_time_in_load = Timecode.add_timecode(tx_time,@vertigo_preroll)
 		  							
-		  							if(Timecode.convert_to_frames(cup_template_load)<125)
+		  							if(Timecode.convert_to_frames(cup_time_in_load)<125)
 		  								updateText["local_tx_time"]="00:00:00:00"
 		  							else
 		  								updateText["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
@@ -181,7 +181,7 @@ module Translator
 		  							setGraphic["position"]= (programma.position) -1
 		  						else
 		  							cup_time_in_load = Timecode.add_timecode(tx_time, @vertigo_preroll)
-		  							if(Timecode.convert_to_frames(cup_template_load)<125)
+		  							if(Timecode.convert_to_frames(cup_time_in_load)<125)
 		  								setGraphic["local_tx_time"]="00:00:00:00"
 		  							else
 		  								setGraphic["local_tx_time"]=Timecode.diff_timecode(cup_time_in_load, "00:00:05:00")
