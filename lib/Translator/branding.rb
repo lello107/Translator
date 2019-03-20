@@ -148,7 +148,7 @@ module Translator
 		  			@brandings.push(PlaylistStructure.new(nota))
 
 
-			  		
+
 				    ##
 				    # se l'effetto ha dei dynimic le metto in playlist 
 				    # prima dell'evento
@@ -157,7 +157,7 @@ module Translator
 
 				    	dynamics.each do |dyn|
 				    		if(dyn.comand=="UpdateText:")
-				    			cmd = "UpdateText: #{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\\,#{dyn.param3}"
+				    			cmd = "UpdateText:#{dyn.template},#{dyn.region},RTObject,#{dyn.param2}\\,#{dyn.param3}"
 								updateText=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	updateText["event_type"]="sBRA"
 
@@ -187,7 +187,7 @@ module Translator
 							  	@brandings.push(PlaylistStructure.new(updateText))
 				    		end
 				    		if(dyn.comand=="SetGraphic:")
-				    			cmd = "SetGraphic: #{dyn.template},#{dyn.region},#{dyn.param1}"
+				    			cmd = "SetGraphic:#{dyn.template},#{dyn.region},#{dyn.param1}"
 								setGraphic=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 							  	setGraphic["event_type"]="sBRA"
 
