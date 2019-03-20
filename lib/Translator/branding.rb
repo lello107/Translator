@@ -133,6 +133,22 @@ module Translator
 		  				load["position"]=(programma.position) - load_position
 			  			@brandings.push(PlaylistStructure.new(load))
 			  		end
+
+					#NOTA
+					nota=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
+				  	nota["event_type"]="sBRA"
+				  	nota["tx_id"][0]="NOTA"
+				  	nota["local_tx_time"]=tx_time
+				  	nota["title"]="- #{tipo_effetto} -"
+		  			nota["position_secondary"]=position
+		  			nota["position"]=programma.position
+		  			nota["tipo"]=224
+		  			position+=1 
+		  			#cup_template["priority"]=2
+		  			@brandings.push(PlaylistStructure.new(nota))
+
+
+			  		
 				    ##
 				    # se l'effetto ha dei dynimic le metto in playlist 
 				    # prima dell'evento
@@ -204,18 +220,7 @@ module Translator
 			
 
 
-					#NOTA
-					nota=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
-				  	nota["event_type"]="sBRA"
-				  	nota["tx_id"][0]="NOTA"
-				  	nota["local_tx_time"]=tx_time
-				  	nota["title"]="- #{tipo_effetto} -"
-		  			nota["position_secondary"]=position
-		  			nota["position"]=programma.position
-		  			nota["tipo"]=224
-		  			position+=1 
-		  			#cup_template["priority"]=2
-		  			@brandings.push(PlaylistStructure.new(nota))
+
 
 			  		#cut down bug
 				  	cdn=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
