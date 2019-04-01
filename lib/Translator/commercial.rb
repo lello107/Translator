@@ -3,7 +3,7 @@ module Translator
 	class Commercial
 
 		VERTIGO_PREROLL="00:00:00:00"
-		LAYOUT_COMM="comm_bug"
+		LAYOUT_COMM="COMM"
 		LAYER_COMM=4
 		HIDE_CMD="hide"
 		SHOW_CMD="show"

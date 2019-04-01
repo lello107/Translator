@@ -3,7 +3,7 @@ module Translator
 	class Promo
 
 		VERTIGO_PREROLL="00:00:00:00"
-		LAYOUT_PROMO="promo_bug"
+		LAYOUT_PROMO="PROMO"
 		LAYER_PROMO=3
 		HIDE_CMD="hide"
 		SHOW_CMD="show"
