@@ -15,6 +15,7 @@ module Translator
 	require "Translator/branding"
 	require "Translator/branding_online"
 	require "Translator/commercial"	
+	require "Translator/promo"	
 	require "Translator/logo"
 	require "Translator/import_lst"
 
