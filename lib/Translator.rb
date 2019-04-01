@@ -171,8 +171,11 @@ module Translator
 			@iconx = Translator::IconxLogo.new(@playlist) if @iconx
 			
 			if(@v12)
-				@promo = Translator::IconxPromo.new(@playlist) if @promo_active
-				@commercial = Translator::IconxCommercial.new(@playlist,@v12) if @commercial_active
+				#@promo = Translator::IconxPromo.new(@playlist) if @promo_active
+				#@commercial = Translator::IconxCommercial.new(@playlist,@v12) if @commercial_active
+				# -- #
+				@promo = Translator::Promo.new(@playlist,@v12) if @promo_active
+				@commercial = Translator::Commercial.new(@playlist,@v12) if @commercial_active
 			else
 				@promo = Translator::Promo.new(@playlist,@v12) if @promo_active
 				@commercial = Translator::Commercial.new(@playlist,@v12) if @commercial_active
