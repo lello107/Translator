@@ -4,7 +4,7 @@ module Translator
 
 		VERTIGO_PREROLL="00:00:00:00"
 		LAYOUT_COMM="COMM"
-		LAYER_COMM=4
+		LAYER_COMM=2
 		HIDE_CMD="hide"
 		SHOW_CMD="show"
 
