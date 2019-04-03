@@ -244,7 +244,9 @@ module Translator
 
 
 
-			  		#cut down bug
+			  		### BUG CUT DOWN ##
+			  		#
+			  		#
 				  	cdn=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 		  			cdn["position_secondary"]=position
 		  			cdn["position"]=programma.position
@@ -280,53 +282,46 @@ module Translator
 
 
 
-					#cup template effect
+					### CUT UP TEMPLATE
+					#
+					#
 					cup_template=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 				  	cup_template["event_type"]="sBRA"
+				  	# set timecode of cutup!
 				  	cup_time_in = Timecode.add_timecode(tx_time,@vertigo_preroll)
-				  	#cup_time_in = Timecode.add_timecode(cup_time_in,durata)
-				  	cup_template["local_tx_time"]=Timecode.add_timecode(cup_time_in, preroll_in)
-				  	
-				  	if(@v12 == true)
-				  		cup_template["title"]="FireSalvo:#{SHOW_CMD},#{layer}"
-				  	else
-				  		cup_template["title"]="CUP:#{layer}"
-				  	end				  	
+				  	cup_time_in = Timecode.diff_timecode(cup_time_in, preroll_in) if(Timecode.convert_to_frames(cup_time_in)>0)
+				  	cup_template["local_tx_time"]=cup_time_in
+				  	cup_template["title"]="FireSalvo:#{SHOW_CMD},#{layer}"		  	
 		  			cup_template["position_secondary"]=position
 		  			cup_template["position"]=programma.position
 		  			cup_template["priority"]=2
-
 				  	position+=1
 				  	@brandings.push(PlaylistStructure.new(cup_template))
 
 
-					#cut down template effect
+					### CUT DOWN TEMPLATE
+					#
+					#
 					cdn_template=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 				  	cdn_template["event_type"]="sBRA"
 				  	tmp_time_out=Timecode.add_timecode(cup_time_in, durata)
+				  	tmp_time_out=Timecode.add_timecode(tmp_time_out, @vertigo_preroll)
 				  	tmp_time=Timecode.diff_timecode(tmp_time_out,preroll_out)
 				  	cdn_template["local_tx_time"]=tmp_time
-				  	if(@v12 == true)
-				  		cdn_template["title"]="FireSalvo:#{HIDE_CMD},#{layer}"
-				  	else
-				  		cdn_template["title"]="CDN:#{layer}"
-				  	end
-				  	
+				  	cdn_template["title"]="FireSalvo:#{HIDE_CMD},#{layer}"
 		  			cdn_template["position_secondary"]=position
 		  			cdn_template["position"]=programma.position
 		  			cdn_template["priority"]=3
 				  	position+=1
 				  	@brandings.push(PlaylistStructure.new(cdn_template))
 
-				  	#cut up bug after template
+			  		### BUG CUT UP ##
+			  		#
+			  		#
 				  	cup=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 				  	cup["event_type"]="sBUG"
 				  	cup["local_tx_time"]=Timecode.add_timecode(Timecode.add_timecode(tx_time,@vertigo_preroll),Timecode.add_timecode(durata,ANTICIPO_LOGOS))
-				  	if(@v12 == true)
-				  		cup["title"]="FireSalvo:#{SHOW_CMD},1"
-				  	else
-				  		cup["title"]="CUP:1"
-				  	end
+				  	cup["title"]="FireSalvo:#{SHOW_CMD},1"
 		  			cup["position_secondary"]=position
 		  			cup["position"]=programma.position
 		  			cup["priority"]=4
