@@ -98,6 +98,7 @@ module Translator
 									
 					if(global_template_layer.include?("#{layer}"))
 						load_position=0
+						load_tx_time = Timecode.diff_timecode(tx_time, preroll_in) if(Timecode.convert_to_frames(tx_time)>0)
 						load_tx_time=Timecode.diff_timecode(tx_time,"00:00:02:00")
 						load_position_priority=position
 						position+=1
@@ -126,11 +127,7 @@ module Translator
 				  		load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 			  			load["event_type"]="sBRA"
 			  			load["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
-			  			if(@v12 == true)
-			  				load["title"]="LoadLayout:#{template},#{layer}"
-			  			else
-			  				load["title"]="LOADI:#{layer} #{template}"
-			  			end
+			  			load["title"]="LoadLayout:#{template},#{layer}"
 		  				load["position_secondary"]=load_position_priority
 		  				load["position"]=(programma.position) - load_position
 			  			@brandings.push(PlaylistStructure.new(load))
