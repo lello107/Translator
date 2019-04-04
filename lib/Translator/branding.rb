@@ -101,10 +101,10 @@ module Translator
 						#load_tx_time = Timecode.diff_timecode(tx_time, preroll_in) if(Timecode.convert_to_frames(tx_time)>0)
 						#load_tx_time=Timecode.diff_timecode(tx_time,"00:00:02:00")
 
-						load_tx_time = Timecode.add_timecode(tx_time,@vertigo_preroll)
+						#load_tx_time = Timecode.add_timecode(tx_time,@vertigo_preroll)
 				  		load_tx_time = Timecode.diff_timecode(load_tx_time, preroll_in) if(Timecode.convert_to_frames(load_tx_time)>0)
 				  		load_tx_time = Timecode.diff_timecode(load_tx_time,"00:00:02:00")
-				  		
+				  		#byebug
 						load_position_priority=position
 						position+=1
 						if(load_template=="#{template}")
