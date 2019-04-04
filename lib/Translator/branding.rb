@@ -101,7 +101,7 @@ module Translator
 						#load_tx_time = Timecode.diff_timecode(tx_time, preroll_in) if(Timecode.convert_to_frames(tx_time)>0)
 						#load_tx_time=Timecode.diff_timecode(tx_time,"00:00:02:00")
 
-						#load_tx_time = Timecode.add_timecode(tx_time,@vertigo_preroll)
+						load_tx_time = tx_time
 				  		load_tx_time = Timecode.diff_timecode(load_tx_time, preroll_in) if(Timecode.convert_to_frames(load_tx_time)>0)
 				  		load_tx_time = Timecode.diff_timecode(load_tx_time,"00:00:02:00")
 				  		#byebug
@@ -132,6 +132,7 @@ module Translator
 				  		load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 			  			load["event_type"]="sBRA"
 			  			load["local_tx_time"]=Timecode.add_timecode(load_tx_time,@vertigo_preroll)
+			  			#byebug
 			  			load["title"]="LoadLayout:#{template},#{layer}"
 		  				load["position_secondary"]=load_position_priority
 		  				load["position"]=(programma.position) - load_position
