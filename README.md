@@ -24,6 +24,11 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
+in locale 
+Translator.debug_path="/Users/lello107/GEMME/Translator/bin/public/dump/"
+file = Translator.debug_last()
+pl = Translator.load_class(file)
+
 #in rails application console
 Translator.debug_path = "#{Rails.root}/public/dump/"
 pl = Translator.load_class(Translator.debug_last)
