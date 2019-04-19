@@ -32,6 +32,10 @@ pl = Translator.load_class(file)
 #in rails application console
 Translator.debug_path = "#{Rails.root}/public/dump/"
 pl = Translator.load_class(Translator.debug_last)
+#remote branding
+remote_branding=true
+pl.branding = Translator::Branding.new(pl.playlist, remote_branding, false)
+
 ```
 ## Development
 
