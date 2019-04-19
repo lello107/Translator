@@ -213,6 +213,7 @@ module Translator
 			    end
 			    tipo = row.event_type
 			    tipo2 = row.schedule_event_type
+			    byebug
 			    segment = tipo ==	OPTIONS[:segment_programs_identify] ? OPTIONS[:segment_programs_val] : 255		 
 
 

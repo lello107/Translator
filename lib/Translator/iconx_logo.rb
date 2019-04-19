@@ -40,9 +40,10 @@ module Translator
 		end
 
 		def generate_iconx_logos()
-		  
-		  @playlist.select {|x| x.event_type.match(/PROG/)}.each do |programma|	
-
+		  all = @playlist.select {|x| x.event_type.match(/PROG/)}
+		  counter = 0
+		  #@playlist.select {|x| x.event_type.match(/PROG/)}.each do |programma|	
+		  all.each do |programma| 
 		  	position=1
 		  	priority=100
 
@@ -179,11 +180,14 @@ module Translator
 			  	position+=1
 		  	end
 
-		  	unless(playlist[programma.position+1].event_type.match(/PROG/))
-				@iconxlogos.push(PlaylistStructure.new(cdn))
+		  	#puts "counter: #{counter} all.size: #{all.size}"
+		  	if(counter < all.size-1)
+			  	unless(playlist[programma.position+1].event_type.match(/PROG/))
+					@iconxlogos.push(PlaylistStructure.new(cdn))
+				end
 			end
-
-			#byebug
+			counter+=1
+			
 			
 		  end #end loop
 		  @applyed=true 
