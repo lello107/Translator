@@ -18,7 +18,7 @@ module Translator
 			@v12 = v12
 			@local_branding = local_branding
 
-			@vertigo_preroll="00:00:02:15"
+			@vertigo_preroll="00:00:00:00"
 			@vertigo_preroll_out="00:00:00:00"
  
 
