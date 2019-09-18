@@ -268,7 +268,7 @@ module Translator
 
 
 
-				    if(tipo_effetto=="ENDCREDITS" || tipo_effetto == "TRAPOCO")
+				    if(tipo_effetto=="ENDCREDITS" || tipo_effetto == "TRAPOCO" || tipo_effetto == "CRAWLs")
 						#cup template effect
 						cup_template_load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 					  	cup_template_load["event_type"]="sBRA"
