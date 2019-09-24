@@ -89,6 +89,9 @@ module Translator
 		  	end
 		  	
 		  	if(opzione_cdn_sdata)
+		  		puts "tx_id in cup: #{programma.tx_id[0].to_s}"
+
+
 
 		  		cup=Translator::NEW_LOGO.clone
 		  		cup["event_type"]="sBUG"
@@ -140,6 +143,7 @@ module Translator
 		  	#
 		  	#byebug
 		  	if(opzione_cdn_sdata)
+
 		  		
 			  	cdn=Translator::NEW_LOGO.clone
 			  	cdn["position_secondary"]=(position)+100
@@ -180,8 +184,9 @@ module Translator
 			  	position+=1
 		  	end
 
+
 		  	#puts "counter: #{counter} all.size: #{all.size}"
-		  	if(counter < all.size-1)
+		  	if(counter+1 < all.size-1)
 			  	unless(playlist[programma.position+1].event_type.match(/PROG/))
 					@iconxlogos.push(PlaylistStructure.new(cdn))
 				end
