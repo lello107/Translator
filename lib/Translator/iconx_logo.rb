@@ -187,7 +187,7 @@ module Translator
 
 		  	#puts "counter: #{counter} all.size: #{all.size}"
 		  	#byebug if (programma.tx_id[0] == "SV10041")
-		  	if(counter < all.size)
+		  	if(counter <= all.size-1)
 		  		#byebug if (programma.tx_id[0] == "SV10041")
 			  	#unless(playlist[programma.position+1].event_type.match(/PROG/))
 					@iconxlogos.push(PlaylistStructure.new(cdn))
