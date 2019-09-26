@@ -13,4 +13,7 @@ require "Translator"
 
 require "irb"
 require 'pry'
+
+Translator.debug_path="/Users/lello107/GEMME/Translator/bin/public/dump/"
+
 IRB.start

@@ -85,6 +85,6 @@ Translator.export_lst(dest_file)
 	- pry
     - Translator.debug_path="/Users/lello107/GEMME/Translator/bin/public/dump/"
     - Translator.list_stored_class()
-	- pl = Translator.load_class(Translator.list_stored_class[1][:playlist])
+	- pl = Translator.load_class(Translator.list_stored_class[0][:playlist])
 	- pl.branding = Translator::Branding.new(pl.playlist, true, false)
 
