@@ -50,6 +50,9 @@ module Translator
 				position=1
 			 	load_template=""
 				global_template_layer=[]
+
+				
+
 				effetti.each do |effetto|
 
 					load_position=1
@@ -94,9 +97,9 @@ module Translator
 						dynamic			= effetto.dynamics.present?	
 						dynamics		= effetto.dynamics					
 					end
-
+					#byebug
 									
-					if(global_template_layer.include?("#{layer}"))
+					if(global_template_layer.include?("#{layer}") )
 						load_position=0
 						#load_tx_time = Timecode.diff_timecode(tx_time, preroll_in) if(Timecode.convert_to_frames(tx_time)>0)
 						#load_tx_time=Timecode.diff_timecode(tx_time,"00:00:02:00")
@@ -112,7 +115,12 @@ module Translator
 						else
 							load_same_template=false
 						end
+
+						#byebug
 					else
+						if(playlist[programma.position-1].event_type.match(/PROG/))
+							load_same_template=true
+						end
 						load_tx_time  = "00:00:00:00"
 					end
 					global_template_layer.push("#{layer}")
@@ -136,7 +144,15 @@ module Translator
 			  			load["title"]="LoadLayout:#{template},#{layer}"
 		  				load["position_secondary"]=load_position_priority
 		  				load["position"]=(programma.position) - load_position
-			  			@brandings.push(PlaylistStructure.new(load))
+
+		  				#nel caso il load sia già stato fatto dello stesso template e si tratti di programma
+		  				
+		  				 
+		  			
+		  			 	@brandings.push(PlaylistStructure.new(load))
+		  			 
+			  			
+			  		 
 			  		end
 
 					#NOTA
