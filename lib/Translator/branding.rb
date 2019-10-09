@@ -51,7 +51,7 @@ module Translator
 			 	load_template=""
 				global_template_layer=[]
 
-				
+				#byebug if programma.tx_id[0] == "SW43586"
 
 				effetti.each do |effetto|
 
@@ -98,6 +98,9 @@ module Translator
 						dynamics		= effetto.dynamics					
 					end
 					#byebug
+					#
+					#puts programma.tx_id[0]
+					#byebug if programma.tx_id[0] == "SW43586"
 									
 					if(global_template_layer.include?("#{layer}") )
 						load_position=0
@@ -118,7 +121,8 @@ module Translator
 
 						#byebug
 					else
-						if(playlist[programma.position-1].event_type.match(/PROG/))
+						dur_evento_prec = Timecode.convert_to_frames(playlist[programma.position-1].tx_duration)
+						if(playlist[programma.position-1].event_type.match(/PROG/) && Timecode.convert_to_frames(tx_time)==0 && dur_evento_prec > 3000)
 							load_same_template=true
 						end
 						load_tx_time  = "00:00:00:00"
