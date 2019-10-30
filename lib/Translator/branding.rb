@@ -280,6 +280,7 @@ module Translator
 				  	else
 				  		cdn["title"]="CDN:1"
 				  	end
+				  	puts programma.inspect
 				  	tmp_time_in = Timecode.add_timecode(tx_time,durata)
 				  	cdn["local_tx_time"]= Timecode.add_timecode(tmp_time_in, @vertigo_preroll)
 				  	position+=1 if gestione_logo
