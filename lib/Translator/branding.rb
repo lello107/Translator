@@ -283,7 +283,7 @@ module Translator
 				  	begin
 				  		Rails.logger.info(programma.inspect)
 				  	rescue Exception => e
-				  		puts e
+				  	
 				  	end
 				 
 				  	tmp_time_in = Timecode.add_timecode(tx_time,durata)
