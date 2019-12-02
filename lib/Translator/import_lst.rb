@@ -206,7 +206,7 @@ module Translator
 					event_type = "COMM"
 					schedule_event_type = "COMMERCIAL_IT"
 				end		
-				if(row.louth_title =~ /(^YFM|^ACC)|^AFM/)
+				if(row.louth_title =~ /(^YFM|^ACC|^AFM)/)
 					event_type = "COMM"
 					schedule_event_type ="FRAME_SPOT_IT"
 				end		
