@@ -15,7 +15,7 @@ module Translator
 					  :iconxlogos, :vertigo_preroll, 
 					  :opzione_one_command, :opzione_cdn_sdata,
 					  :opzione_logo_cdn_next_event, :vertigo_preroll_out,
-					  :plus_one, :plus_one_title, :plus_one_id, :iconx_id
+					  :plus_one, :plus_one_title, :plus_one_id, :iconx_id, :plus_one_preroll, :plus_one_preroll_out
 
 		def initialize( playlist )#PlaylistStructure
 			@applyed=false
