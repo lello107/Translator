@@ -164,13 +164,16 @@ module Translator
 			@iconx = iconx
 			@v12=v12
 			@local_branding = local_branding
+			#@logo_plus_one = logo_plus_one
 
 
 			@debug_path = Translator.debug_path
 
 			@logo = Translator::Logo.new(@playlist) if @logo_active
 			@iconx = Translator::IconxLogo.new(@playlist) if @iconx
-			
+			#@iconx.logo_plus = @logo_plus_one			
+
+
 			if(@v12)
 				#@promo = Translator::IconxPromo.new(@playlist) if @promo_active
 				#@commercial = Translator::IconxCommercial.new(@playlist,@v12) if @commercial_active

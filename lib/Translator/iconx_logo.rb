@@ -31,8 +31,10 @@ module Translator
 			@opzione_logo_cdn_next_event=false
 
 			@plus_one=false
-			@plus_one_id="USD2"
-			@plus_one_title="LOGO"			
+			@plus_one_id="LGK1P"
+			@plus_one_title="UP&DOWN"		
+			@plus_one_preroll="00:00:02:20"
+			@plus_one_preroll_out="00:00:02:20"				
 		end
 
 		def deep_copy(o)
@@ -107,7 +109,7 @@ module Translator
 			  	if(@plus_one)
 			  		plus = deep_copy(Translator::NEW_LOGO.clone)
 			  		plus["event_type"]="sBUG"
-			  		plus["local_tx_time"]=@vertigo_preroll
+			  		plus["local_tx_time"]=@plus_one_preroll
 			  		plus["tx_id"][0] = @plus_one_id
 			  		plus["title"]=@plus_one_title
 			  		plus["priority"]=0
@@ -160,7 +162,7 @@ module Translator
 			  	if(@plus_one)
 			  		plus = deep_copy(Translator::NEW_LOGO.clone)
 			  		plus["event_type"]="sBUG"
-			  		plus["local_tx_time"]=Timecode.diff_timecode(logo_cdn_time, @vertigo_preroll_out)
+			  		plus["local_tx_time"]=Timecode.diff_timecode(logo_cdn_time, @plus_one_preroll_out)
 			  		plus["tx_id"][0] = @plus_one_id
 			  		plus["title"]=@plus_one_title
 			  		plus["priority"]=priority
