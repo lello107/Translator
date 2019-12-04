@@ -32,9 +32,11 @@ module Translator
 
 			@plus_one=false
 			@plus_one_id="LGK1P"
-			@plus_one_title="UP&DOWN"		
-			@plus_one_preroll="00:00:02:20"
-			@plus_one_preroll_out="00:00:02:20"				
+			@plus_one_title="UP&DOWN"	
+			@plus_one_up="CUP:0"
+			@plus_one_down="CDN:0"	
+			@plus_one_preroll="00:00:00:00"
+			@plus_one_preroll_out="00:00:00:00"				
 		end
 
 		def deep_copy(o)
@@ -111,7 +113,7 @@ module Translator
 			  		plus["event_type"]="sBUG"
 			  		plus["local_tx_time"]=@plus_one_preroll
 			  		plus["tx_id"][0] = @plus_one_id
-			  		plus["title"]=@plus_one_title
+			  		plus["title"]= @plus_one_title == "" ? @plus_one_up : @plus_one_title
 			  		plus["priority"]=0
 			  		plus["tx_duration"]="00:00:02:00"
 			  		plus["position_secondary"]=position
@@ -164,7 +166,7 @@ module Translator
 			  		plus["event_type"]="sBUG"
 			  		plus["local_tx_time"]=Timecode.diff_timecode(logo_cdn_time, @plus_one_preroll_out)
 			  		plus["tx_id"][0] = @plus_one_id
-			  		plus["title"]=@plus_one_title
+			  		plus["title"]= @plus_one_title == "" ? @plus_one_down : @plus_one_title
 			  		plus["priority"]=priority
 			  		plus["position_secondary"]=(position)+101
 			  		plus["position"]=programma.position + opzione_logo_next
