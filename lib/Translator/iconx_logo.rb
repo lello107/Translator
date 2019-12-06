@@ -164,7 +164,7 @@ module Translator
 			  	if(@plus_one)
 			  		plus = deep_copy(Translator::NEW_LOGO.clone)
 			  		plus["event_type"]="sBUG"
-			  		plus["local_tx_time"]=Timecode.diff_timecode(logo_cdn_time, @plus_one_preroll_out)
+			  		plus["local_tx_time"]=Timecode.add_timecode(logo_cdn_time, @plus_one_preroll_out)
 			  		plus["tx_id"][0] = @plus_one_id
 			  		plus["title"]= @plus_one_title == "" ? @plus_one_down : @plus_one_title
 			  		plus["priority"]=priority
