@@ -24,6 +24,7 @@ module Translator
 		  @playlist.select{|p| p.event_type=="COMM"}.chunk_while { |x, y| y.position == x.position + 1}.select { |a| a.size >= 1}.each do |gruppo_commercials|
 		  	position=1	
 			
+			
 		
 		  	#cup=Translator::NEW_LOGO.clone
 		  	cup=Translator::SVIDEO.clone
@@ -37,7 +38,7 @@ module Translator
 		  	@commercials.push(PlaylistStructure.new(cup))
 			
 		  
-		  @applyed=true
+		    @applyed=true
 		end
 	end
 

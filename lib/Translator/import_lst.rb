@@ -202,11 +202,11 @@ module Translator
 				## COMMERCIAL ##
 				#
 				#
-				if(row.louth_title =~ /(^YPM|^YCC)/)
+				if(row.louth_title =~ /(^YPM|^YCC|^ACC)/)
 					event_type = "COMM"
 					schedule_event_type = "COMMERCIAL_IT"
 				end		
-				if(row.louth_title =~ /(^YFM|^ACC|^AFM)/)
+				if(row.louth_title =~ /(^AFM|^ASS|^YFM)/)
 					event_type = "COMM"
 					schedule_event_type ="FRAME_SPOT_IT"
 				end		
