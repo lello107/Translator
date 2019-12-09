@@ -29,7 +29,7 @@ module Translator
 			conta_eventi_per_blocco=0
 			gruppo_commercials.each do |comm|
 				puts "##{conta_eventi_per_blocco} #{comm.title} #{comm.schedule_event_type}"
-				if(comm.schedule_event_type == "FRAME_SPOT_IT" || comm.schedule_event_type == "BILLBOARD_IT")
+				if(comm.schedule_event_type == "COMMERCIAL_IT")
 					## vedi import_lst.rb row: 205 per dettagli
 					#
 					evento_da_contrassegnare=conta_eventi_per_blocco

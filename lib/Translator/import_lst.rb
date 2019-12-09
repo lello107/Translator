@@ -203,14 +203,17 @@ module Translator
 				#
 				#
 				if(row.louth_title =~ /(^YPM|^YCC|^ACC)/)
+					# va esso 5 sec
 					event_type = "COMM"
 					schedule_event_type = "COMMERCIAL_IT"
 				end		
-				if(row.louth_title =~ /(^AFM|^ASS|^YFM)/)
+				if(row.louth_title =~ /(^YFM|^AFM)/)
+					# niente solo giù il logo
 					event_type = "COMM"
 					schedule_event_type ="FRAME_SPOT_IT"
 				end		
-				if(row.louth_title =~ /(^YSN|^YSS)/)
+				if(row.louth_title =~ /(^YSN|^YSS|^ASS)/)
+					# niente solo giù il logo
 					event_type = "COMM"
 					schedule_event_type ="BILLBOARD_IT"
 				end						
