@@ -143,9 +143,9 @@ module Translator
 		# Class Translator::Branding
 		attr_accessor :branding
 
-		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12, :debug_path, :logo, :local_branding
+		attr_accessor :logo_active,:commercial_active,:promo_active, :branding_active,:iconx,:v12, :debug_path, :logo, :local_branding, :plus_one_playlist
 
-		def initialize(array: [], branding_active: true, logo_active: true, promo_active: true, commercial_active: true, iconx: true,v12: false, local_branding: false)
+		def initialize(array: [], branding_active: true, logo_active: true, promo_active: true, commercial_active: true, iconx: true,v12: false, local_branding: false, plus_one_playlist: false)
 			@playlist=[]
 			@lst_rows=[]
 			position=0
@@ -164,6 +164,7 @@ module Translator
 			@iconx = iconx
 			@v12=v12
 			@local_branding = local_branding
+			@plus_one_playlist = plus_one_playlist
 			#@logo_plus_one = logo_plus_one
 
 
@@ -219,6 +220,7 @@ module Translator
 			    #byebug
 			    segment = tipo ==	OPTIONS[:segment_programs_identify] ? OPTIONS[:segment_programs_val] : 255		 
 
+			    row.local_tx_time = Timecode.add_timecode(row.local_tx_time, "01:00:00:00") if @plus_one_playlist
 
 			    line = {
 			    	:type_			=>		row.tipo,
@@ -314,6 +316,16 @@ module Translator
 			end
 
 		end
+		
+		## Genereta harris lst translato di 1 ora per il +1
+		# 
+		#
+		##
+		def generate_plus_one()
+			@playlist.each do |row|
+				row.local_tx_time = Timecode.add_timecode(row.local_tx_time, "01:00:00:00")
+			end
+		end
 
 		## export playlist as lst file
 		#
@@ -333,7 +345,9 @@ module Translator
 			#debug
 			store_class(destination_file)
 			unless(@v12)
+				#generate_plus_one() if @plus_one_playlist
 				pl = HarrisLouth::Louthinterface.new(:rows=>@lst_rows)
+
 			else
 				pl = HarrisV12::Louthinterface.new(:rows=>@lst_rows)
 				pl.crc32=HarrisV12.calc_crc32(pl)
