@@ -220,7 +220,7 @@ module Translator
 			    #byebug
 			    segment = tipo ==	OPTIONS[:segment_programs_identify] ? OPTIONS[:segment_programs_val] : 255		 
 
-			    row.local_tx_time = Timecode.add_timecode(row.local_tx_time, "01:00:00:00") if @plus_one_playlist
+			    row.local_tx_time = Timecode.add_timecode(row.local_tx_time, "01:00:00:00") if @plus_one_playlist && row.tipo == 0
 
 			    line = {
 			    	:type_			=>		row.tipo,
@@ -324,6 +324,7 @@ module Translator
 		def generate_plus_one()
 			@playlist.each do |row|
 				#byebug
+				puts "#{row.tipo} #{row.title} #{row.event_type}"
 				row.local_tx_time = Timecode.add_timecode(row.local_tx_time, "01:00:00:00") if row.tipo==0
 			end
 		end
@@ -350,7 +351,7 @@ module Translator
 				pl = HarrisLouth::Louthinterface.new(:rows=>@lst_rows)
 
 			else
-				generate_plus_one() if @plus_one_playlist
+				#generate_plus_one() if @plus_one_playlist
 				pl = HarrisV12::Louthinterface.new(:rows=>@lst_rows)
 				pl.crc32=HarrisV12.calc_crc32(pl)
 			end
