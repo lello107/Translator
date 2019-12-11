@@ -323,7 +323,8 @@ module Translator
 		##
 		def generate_plus_one()
 			@playlist.each do |row|
-				row.local_tx_time = Timecode.add_timecode(row.local_tx_time, "01:00:00:00")
+				#byebug
+				row.local_tx_time = Timecode.add_timecode(row.local_tx_time, "01:00:00:00") if row.tipo==0
 			end
 		end
 
@@ -345,10 +346,11 @@ module Translator
 			#debug
 			store_class(destination_file)
 			unless(@v12)
-				#generate_plus_one() if @plus_one_playlist
+				
 				pl = HarrisLouth::Louthinterface.new(:rows=>@lst_rows)
 
 			else
+				generate_plus_one() if @plus_one_playlist
 				pl = HarrisV12::Louthinterface.new(:rows=>@lst_rows)
 				pl.crc32=HarrisV12.calc_crc32(pl)
 			end
