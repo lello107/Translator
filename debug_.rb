@@ -7,10 +7,9 @@ pl.generate_iconx()
 pl.generate_promos()
 pl.generate_commercials()
 pl.generate_brandings()
-pl.plus_one_playlist=true
-
+#pl.plus_one_playlist=true
 pl.generate_lst_events()
 pl_out = HarrisV12::Louthinterface.new(:rows=>pl.lst_rows)
 pl_out.crc32=HarrisV12.calc_crc32(pl_out)
-file = "peppa6.lst"
+file = "peppa10.lst"
 File.open(file,"wb") { |fi| pl_out.write(fi)}
