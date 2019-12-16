@@ -162,7 +162,7 @@ module Translator
 				  	end
 
 
-
+				   ## LOAD ##
 				   if(load_same_template==false)
 				  		#load template on prev event
 				  		load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
@@ -172,16 +172,27 @@ module Translator
 			  			load["title"]="LoadLayout:#{template},#{layer}"
 		  				load["position_secondary"]=load_position_priority
 		  				load["position"]=(programma.position) - load_position
-
-		  				#nel caso il load sia già stato fatto dello stesso template e si tratti di programma
-		  				
-		  				 
-		  			
+		  				#nel caso il load sia già stato fatto dello stesso template e si tratti di programma		  			
 		  			 	@brandings.push(PlaylistStructure.new(load))
-		  			 
-			  			
-			  		 
+
+		  			 	##
+		  			 	# Nel caso sia un PILLARBOX 
+		  			 	# faccio il setupAll 2 secondi dopo il load.
+		  			 	# visto che esce in ritardo 
+		  			 	# 
+		  			 	if tipo_effetto == "PILLARBOX"
+							cup_template_load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
+						  	cup_template_load["event_type"]="sBRA"
+						  	cup_template_load["local_tx_time"]="00:00:02:00"		  	
+						  	cup_template_load["title"]="SetupAll:#{layer}"	  	
+				  			cup_template_load["position_secondary"]=load_position_priority +1
+				  			cup_template_load["position"]=(programma.position) - load_position
+				  			cup_template_load["tx_duration"]="00:00:01:00"
+						  	@brandings.push(PlaylistStructure.new(cup_template_load))
+		  			 	end
 			  		end
+
+
 
 					#NOTA
 					nota=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
@@ -319,6 +330,7 @@ module Translator
 
 
 				    if(tipo_effetto=="ENDCREDITS" || tipo_effetto == "TRAPOCO" || tipo_effetto == "CRAWLs")
+				    	#byebug
 						#cup template effect
 						cup_template_load=deep_copy(Translator::NEW_LOGO.clone)#Translator::NEW_LOGO.clone
 					  	cup_template_load["event_type"]="sBRA"

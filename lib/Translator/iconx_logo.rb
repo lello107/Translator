@@ -193,6 +193,10 @@ module Translator
 		  	#byebug if (programma.tx_id[0] == "SV10041" or programma.tx_id[0] == "SV39687")
 		  	if(counter <= all.size-1)
 		  		#byebug if (programma.tx_id[0] == "SV10041")
+		  		if(playlist[programma.position+1].event_type)
+		  			@iconxlogos.push(PlaylistStructure.new(cdn))
+		  			break
+		  		end
 			  	unless(playlist[programma.position+1].event_type.match(/PROG/))
 			  		#byebug if (programma.tx_id[0] == "SV10041" or programma.tx_id[0] == "SV39687")
 					@iconxlogos.push(PlaylistStructure.new(cdn))

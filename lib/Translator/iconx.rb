@@ -25,6 +25,7 @@ module Translator
 		  	position=1
 		  	priority=100
 
+		  	#byebug
 
 		  	if programma.title_2 == BUG_OFF
 		  		next
